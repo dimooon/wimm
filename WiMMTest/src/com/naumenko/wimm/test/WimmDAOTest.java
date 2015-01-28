@@ -7,6 +7,7 @@ import android.test.AndroidTestCase;
 
 import com.naumenko.wimm.dao.StubDAO;
 import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.dao.entity.StubEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmDAOTest extends AndroidTestCase{
