@@ -1,27 +1,29 @@
 package com.naumenko.wimm.dao;
 
+import java.util.List;
+
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class StubDAO implements WimmDAO{
 
 	@Override
-	public void addEntity(WimmEntity entity) {
-		
+	public boolean addEntity(WimmEntity entity) {
+		return false;
 	}
 
 	@Override
-	public void updateEntity(WimmEntity entity) {
-		
+	public boolean updateEntity(WimmEntity entity) {
+		return false;
 	}
 
 	@Override
-	public void deleteEntity(WimmEntity entity) {
-		
+	public boolean deleteEntity(WimmEntity entity) {
+		return false;
 	}
 
 	@Override
-	public void getEntityList() {
-		
+	public List<WimmEntity> getEntityList() {
+		return null;
 	}
 
 

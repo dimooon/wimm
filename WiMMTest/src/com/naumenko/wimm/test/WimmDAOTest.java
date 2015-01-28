@@ -54,7 +54,7 @@ public class WimmDAOTest extends AndroidTestCase{
 	public void testGetEntityList(){
 		ArrayList<WimmEntity> entityList;
 		
-		entityList = dataAccessObject.getEntityList();
+		entityList = (ArrayList<WimmEntity>) dataAccessObject.getEntityList();
 	}
 	
 	private void initDAO(){
