@@ -61,7 +61,8 @@ public class WimmDAOTest extends AndroidTestCase{
 	}
 	
 	public void testDeleteEntity(){
-		assertTrue(dataAccessObject.deleteEntity(entity));
+		
+		assertTrue(dataAccessObject.deleteEntity((1)));
 	}
 	
 	public void testGetEntityList(){

@@ -1,4 +1,4 @@
-package com.naumenko.wimm.dao;
+	package com.naumenko.wimm.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +47,14 @@ public class SqliteWimmDAO implements WimmDAO{
 	}
 
 	@Override
-	public boolean deleteEntity(WimmEntity entity) {
-		return false;
+	public boolean deleteEntity(long id) {
+		
+	    int count = database.delete(
+	    			ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	    			ENTITY_CONTRACT.ID.getContractKey() + " = " + id, 
+	    			null);
+		
+		return count > 0;
 	}
 
 	@Override
