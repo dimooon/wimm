@@ -6,7 +6,7 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public interface WimmDAO {
 	
-	public boolean addEntity(WimmEntity entity);
+	public long addEntity(WimmEntity entity);
 	public boolean updateEntity(WimmEntity entity);
 	public boolean deleteEntity(WimmEntity entity);
 	public WimmEntity getEntity(long id);

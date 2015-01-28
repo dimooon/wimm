@@ -23,7 +23,7 @@ public class SqliteWimmDAO implements WimmDAO{
 	}
 	
 	@Override
-	public boolean addEntity(WimmEntity entity) {
+	public long addEntity(WimmEntity entity) {
 		
 		open();
 		
@@ -38,7 +38,7 @@ public class SqliteWimmDAO implements WimmDAO{
 	    
 	    close();
 	    
-		return insertId > 0;
+		return insertId;
 	}
 
 	@Override
