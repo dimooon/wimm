@@ -2,7 +2,7 @@ package com.naumenko.wimm.dao.entity;
 
 import android.database.Cursor;
 
-public class Entity implements WimmEntity, CursorParselable{
+public class PaymentEntity implements WimmEntity, CursorParselable{
 	
 	protected long id;
 	protected String name;
@@ -11,11 +11,11 @@ public class Entity implements WimmEntity, CursorParselable{
 	protected PaymentType type;
 	protected Long timeInMs;
 	
-	public Entity() {
+	public PaymentEntity() {
 		super();
 	}
 	
-	public Entity(Cursor cursor){
+	public PaymentEntity(Cursor cursor){
 		cursorToWimmEntity(cursor);
 	}
 	

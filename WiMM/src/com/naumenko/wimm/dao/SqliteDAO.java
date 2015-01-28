@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.naumenko.wimm.dao.WimmSQLiteHelper.ENTITY_CONTRACT;
-import com.naumenko.wimm.dao.entity.Entity;
+import com.naumenko.wimm.dao.entity.PaymentEntity;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
@@ -90,7 +90,7 @@ public class SqliteDAO implements WimmDAO{
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
 		
-		WimmEntity entity = new Entity();
+		WimmEntity entity = new PaymentEntity();
 		entity.setId(cursor.getLong(0));
 		entity.setName(cursor.getString(1));
 		entity.setDescription(cursor.getString(2));
