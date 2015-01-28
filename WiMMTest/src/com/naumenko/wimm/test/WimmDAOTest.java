@@ -55,6 +55,8 @@ public class WimmDAOTest extends AndroidTestCase{
 		ArrayList<WimmEntity> entityList;
 		
 		entityList = (ArrayList<WimmEntity>) dataAccessObject.getEntityList();
+		assertNotNull(entityList);
+		assertFalse(entityList.isEmpty());
 	}
 	
 	private void initDAO(){
