@@ -1,6 +1,7 @@
 package com.naumenko.wimm.test;
 
 import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.dao.entity.WimmEntity;
 
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
