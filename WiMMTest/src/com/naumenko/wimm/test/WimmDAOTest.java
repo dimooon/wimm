@@ -3,16 +3,17 @@ package com.naumenko.wimm.test;
 import java.util.ArrayList;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.naumenko.wimm.dao.SqliteDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
-import com.naumenko.wimm.test.mock.StubDAO;
 import com.naumenko.wimm.test.mock.StubEntity;
 
 public class WimmDAOTest extends AndroidTestCase{
 	
+	private static final String TAG = WimmDAOTest.class.getSimpleName();
 	private WimmDAO dataAccessObject;
 	private WimmEntity entity;
 	@Override
@@ -51,11 +52,18 @@ public class WimmDAOTest extends AndroidTestCase{
 	}
 	
 	public void testGetEntityList(){
+		
+		dataAccessObject.addEntity(entity);
+		
 		ArrayList<WimmEntity> entityList;
 		
 		entityList = (ArrayList<WimmEntity>) dataAccessObject.getEntityList();
 		assertNotNull(entityList);
 		assertFalse(entityList.isEmpty());
+		
+		for (WimmEntity wimmEntity : entityList) {
+			Log.e(TAG, wimmEntity.toString());
+		}
 	}
 	
 	private void initDAO(){

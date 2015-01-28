@@ -1,12 +1,16 @@
 package com.naumenko.wimm.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.naumenko.wimm.dao.WimmSQLiteHelper.ENTITY_CONTRACT;
+import com.naumenko.wimm.dao.entity.Entity;
+import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class SqliteDAO implements WimmDAO{
@@ -49,7 +53,31 @@ public class SqliteDAO implements WimmDAO{
 
 	@Override
 	public List<WimmEntity> getEntityList() {
-		return null;
+		
+		List<WimmEntity> entities = new ArrayList<WimmEntity>();
+
+		open();
+		
+	    Cursor cursor = database.query(
+	    		ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	    		ENTITY_CONTRACT.CONTRACT.getSelectionAllFields(), 
+	    		null, 
+	    		null, 
+	    		null, 
+	    		null, 
+	    		null);
+	    
+	    cursor.moveToFirst();
+	    
+	    while (!cursor.isAfterLast()) {
+	      entities.add(cursorToEntity(cursor));
+	      cursor.moveToNext();
+	    }
+
+	    cursor.close();
+	    close();
+	    
+		return entities;
 	}
 	
 	private void open(){
@@ -58,6 +86,19 @@ public class SqliteDAO implements WimmDAO{
 	
 	private void close(){
 		helper.close();
+	}
+	
+	private WimmEntity cursorToEntity(Cursor cursor){
+		
+		WimmEntity entity = new Entity();
+		entity.setId(cursor.getLong(0));
+		entity.setName(cursor.getString(1));
+		entity.setDescription(cursor.getString(2));
+		entity.setAmount(cursor.getDouble(3));
+		entity.setPaymentType((PaymentType.get(cursor.getString(4))));
+		entity.setDate(cursor.getLong(5));
+		
+		return entity;
 	}
 	
 }

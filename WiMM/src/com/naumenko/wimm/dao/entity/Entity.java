@@ -68,4 +68,11 @@ public class Entity implements WimmEntity{
 	public void setDate(Long timeInMs) {
 		this.timeInMs = timeInMs;
 	}
+
+	@Override
+	public String toString() {
+		return "Entity [id=" + id + ", name=" + name + ", description="
+				+ description + ", amount=" + amount + ", type=" + type
+				+ ", timeInMs=" + timeInMs + "]";
+	}
 }

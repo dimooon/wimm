@@ -16,4 +16,5 @@ public interface WimmEntity {
 	public PaymentType getType();
 	public Long getTimeInMs();
 	
+	public String toString();
 }
