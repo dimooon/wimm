@@ -1,5 +1,7 @@
 package com.naumenko.wimm.dao;
 
+import com.naumenko.wimm.dao.entity.WimmEntity;
+
 public interface WimmDAO {
 	
 	public void testAddEntity(WimmEntity entity);
