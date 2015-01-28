@@ -52,6 +52,29 @@ public class SqliteWimmDAO implements WimmDAO{
 	}
 
 	@Override
+	public WimmEntity getEntity(long id) {
+		
+		open();
+		
+		Cursor cursor = database.query(
+				ENTITY_CONTRACT.TABLE_NAME.getContractKey(),
+				ENTITY_CONTRACT.CONTRACT.getSelectionAllFields(), 
+				ENTITY_CONTRACT.ID.getContractKey() + " = " + id, 
+				null,
+		        null,
+		        null,
+		        null);
+		cursor.moveToFirst();
+		
+		WimmEntity entity = new PaymentWimmEntity(cursor);
+		cursor.close();
+		
+		close();
+		
+		return entity;
+	}
+	
+	@Override
 	public List<WimmEntity> getEntityList() {
 		
 		List<WimmEntity> entities = new ArrayList<WimmEntity>();

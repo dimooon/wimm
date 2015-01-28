@@ -9,6 +9,7 @@ public interface WimmDAO {
 	public boolean addEntity(WimmEntity entity);
 	public boolean updateEntity(WimmEntity entity);
 	public boolean deleteEntity(WimmEntity entity);
+	public WimmEntity getEntity(long id);
 	public List<WimmEntity> getEntityList();
 	
 }

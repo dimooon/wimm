@@ -41,6 +41,17 @@ public class WimmDAOTest extends AndroidTestCase{
 		
 	}
 	
+	public void testGetEntity(){
+		
+		dataAccessObject.addEntity(entity);
+		
+		WimmEntity insertedBeforeEntity = dataAccessObject.getEntity(1);
+		
+		assertTrue(insertedBeforeEntity.valid());
+		assertEquals(entity, insertedBeforeEntity);
+		
+	}
+	
 	public void testUpdateEntity(){
 		
 		assertTrue(dataAccessObject.updateEntity(entity));

@@ -17,4 +17,5 @@ public interface WimmEntity {
 	public Long getTimeInMs();
 	
 	public String toString();
+	public boolean valid();
 }
