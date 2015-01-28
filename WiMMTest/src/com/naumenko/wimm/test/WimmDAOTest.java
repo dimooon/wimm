@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.naumenko.wimm.dao.SqliteDAO;
+import com.naumenko.wimm.dao.SqliteWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
@@ -67,7 +67,7 @@ public class WimmDAOTest extends AndroidTestCase{
 	}
 	
 	private void initDAO(){
-		dataAccessObject = new SqliteDAO(getContext());
+		dataAccessObject = new SqliteWimmDAO(getContext());
 		
 		entity = new StubEntity();
 		

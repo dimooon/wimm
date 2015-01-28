@@ -8,17 +8,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.naumenko.wimm.dao.WimmSQLiteHelper.ENTITY_CONTRACT;
-import com.naumenko.wimm.dao.entity.PaymentEntity;
-import com.naumenko.wimm.dao.entity.PaymentType;
+import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
+import com.naumenko.wimm.db.ENTITY_CONTRACT;
+import com.naumenko.wimm.db.WimmSQLiteHelper;
 
-public class SqliteDAO implements WimmDAO{
+public class SqliteWimmDAO implements WimmDAO{
 
 	private SQLiteDatabase database;
 	private WimmSQLiteHelper helper;
 	
-	public SqliteDAO(Context context) {
+	public SqliteWimmDAO(Context context) {
 		helper = new WimmSQLiteHelper(context);
 	}
 	
@@ -90,7 +90,7 @@ public class SqliteDAO implements WimmDAO{
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
 		
-		WimmEntity entity = new PaymentEntity(cursor);
+		WimmEntity entity = new PaymentWimmEntity(cursor);
 		
 		return entity;
 	}
