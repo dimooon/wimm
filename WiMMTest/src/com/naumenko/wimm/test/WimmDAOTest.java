@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.test.AndroidTestCase;
 
 import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.test.mock.StubDAO;
 import com.naumenko.wimm.test.mock.StubEntity;
@@ -33,19 +34,15 @@ public class WimmDAOTest extends AndroidTestCase{
 	
 	public void testAddEntity(){
 		
-		WimmEntity entity = new StubEntity();
-		
 		assertTrue(dataAccessObject.addEntity(entity));
 	}
 	
 	public void testUpdateEntity(){
-		WimmEntity entity = new StubEntity();
 		
 		assertTrue(dataAccessObject.updateEntity(entity));
 	}
 	
 	public void testDeleteEntity(){
-		WimmEntity entity = new StubEntity();
 		
 		assertTrue(dataAccessObject.deleteEntity(entity));
 	}
@@ -63,11 +60,11 @@ public class WimmDAOTest extends AndroidTestCase{
 		
 		entity = new StubEntity();
 		
-		entity.setName();
-		entity.setDescription();
-		entity.setAmount();
-		entity.setPaymentType();
-		entity.setDate();
+		entity.setName("potato");
+		entity.setDescription("just a potato");
+		entity.setAmount(15.56);
+		entity.setPaymentType(PaymentType.PAY);
+		entity.setDate(System.currentTimeMillis());
 	}
 	
 	private void freeDAO(){
