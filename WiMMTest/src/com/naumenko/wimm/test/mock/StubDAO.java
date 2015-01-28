@@ -9,8 +9,8 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 public class StubDAO implements WimmDAO{
 
 	@Override
-	public boolean addEntity(WimmEntity entity) {
-		return true;
+	public long addEntity(WimmEntity entity) {
+		return 1;
 	}
 
 	@Override

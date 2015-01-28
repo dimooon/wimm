@@ -8,8 +8,8 @@ import android.util.Log;
 import com.naumenko.wimm.dao.SqliteWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentType;
+import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
-import com.naumenko.wimm.test.mock.StubEntity;
 
 public class WimmDAOTest extends AndroidTestCase{
 	
@@ -45,9 +45,11 @@ public class WimmDAOTest extends AndroidTestCase{
 		
 		long insertId = dataAccessObject.addEntity(entity);
 		
+		entity.setId(insertId);
+		
 		WimmEntity insertedBeforeEntity = dataAccessObject.getEntity(insertId);
 		
-		assertTrue(insertedBeforeEntity.valid());
+		assertTrue(insertedBeforeEntity.isValid());
 		assertEquals(entity, insertedBeforeEntity);
 		
 	}
@@ -80,7 +82,7 @@ public class WimmDAOTest extends AndroidTestCase{
 	private void initDAO(){
 		dataAccessObject = new SqliteWimmDAO(getContext());
 		
-		entity = new StubEntity();
+		entity = new PaymentWimmEntity();
 		
 		entity.setName("potato");
 		entity.setDescription("just a potato");

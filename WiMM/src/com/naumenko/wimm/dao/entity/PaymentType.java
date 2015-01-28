@@ -27,4 +27,5 @@ public enum PaymentType {
 	public static PaymentType get(String typeRepresentation) {
         return lookup.get(typeRepresentation);
     }
+	
 }

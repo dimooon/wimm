@@ -21,7 +21,7 @@ public class PaymentWimmEntity implements WimmEntity, CursorParselable{
 	}
 	
 	@Override
-	public boolean valid() {
+	public boolean isValid() {
 		return entityParsed();
 	}
 	
@@ -106,7 +106,7 @@ public class PaymentWimmEntity implements WimmEntity, CursorParselable{
 	public boolean entityParsed() {
 		return id > 0;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
