@@ -36,4 +36,9 @@ public class StubDAO implements WimmDAO{
 	public WimmEntity getEntity(long id) {
 		return new StubEntity();
 	}
+
+	@Override
+	public int clear() {
+		return 3;
+	}
 }

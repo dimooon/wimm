@@ -49,14 +49,32 @@ public class SqliteWimmDAO implements WimmDAO{
 	@Override
 	public boolean deleteEntity(long id) {
 		
+		open();
+		
 	    int count = database.delete(
 	    			ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
 	    			ENTITY_CONTRACT.ID.getContractKey() + " = " + id, 
 	    			null);
 		
+	    close();
+	    
 		return count > 0;
 	}
 
+	@Override
+	public int clear() {
+		
+		int deletedCount; 
+		
+		open();
+		
+		deletedCount =  database.delete(ENTITY_CONTRACT.TABLE_NAME.getContractKey() , null, null);
+		
+		close();
+		
+		return deletedCount;
+	}
+	
 	@Override
 	public WimmEntity getEntity(long id) {
 		

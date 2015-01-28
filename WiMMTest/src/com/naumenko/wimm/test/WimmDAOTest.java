@@ -27,6 +27,8 @@ public class WimmDAOTest extends AndroidTestCase{
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		
+		dataAccessObject.clear();
+		
 		freeDAO();
 	}
 	
@@ -62,7 +64,20 @@ public class WimmDAOTest extends AndroidTestCase{
 	
 	public void testDeleteEntity(){
 		
-		assertTrue(dataAccessObject.deleteEntity((1)));
+		long entityId = dataAccessObject.addEntity(entity);
+		
+		assertTrue(dataAccessObject.deleteEntity((entityId)));
+	}
+	
+	public void testClear(){
+		
+		dataAccessObject.addEntity(entity);
+		dataAccessObject.addEntity(entity);
+		dataAccessObject.addEntity(entity);
+		
+		int deletedCount = dataAccessObject.clear();
+		
+		assertTrue(deletedCount > 2);
 	}
 	
 	public void testGetEntityList(){
@@ -75,9 +90,6 @@ public class WimmDAOTest extends AndroidTestCase{
 		assertNotNull(entityList);
 		assertFalse(entityList.isEmpty());
 		
-		for (WimmEntity wimmEntity : entityList) {
-			Log.e(TAG, wimmEntity.toString());
-		}
 	}
 	
 	private void initDAO(){

@@ -11,5 +11,5 @@ public interface WimmDAO {
 	public boolean deleteEntity(long id);
 	public WimmEntity getEntity(long id);
 	public List<WimmEntity> getEntityList();
-	
+	public int clear();
 }
