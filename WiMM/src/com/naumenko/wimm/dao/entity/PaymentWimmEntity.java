@@ -1,5 +1,7 @@
 package com.naumenko.wimm.dao.entity;
 
+import com.naumenko.wimm.db.ENTITY_CONTRACT;
+
 import android.database.Cursor;
 
 public class PaymentWimmEntity implements WimmEntity, CursorParselable{
@@ -94,12 +96,12 @@ public class PaymentWimmEntity implements WimmEntity, CursorParselable{
 	
 	@Override
 	public void cursorToWimmEntity(Cursor cursor) {
-		setId(cursor.isNull(0) ? -1 : cursor.getLong(0));
-		setName(cursor.isNull(1) ? null : cursor.getString(1));
-		setDescription(cursor.isNull(2) ? null :cursor.getString(2));
-		setAmount(cursor.isNull(3) ? -1.0 : cursor.getDouble(3));
-		setPaymentType(cursor.isNull(4) ? null : (PaymentType.get(cursor.getString(4))));
-		setDate(cursor.isNull(5) ? -1 :cursor.getLong(5));
+		setId(cursor.isNull(0) ? -1 : cursor.getLong(ENTITY_CONTRACT.ID.getIndex()));
+		setName(cursor.isNull(1) ? null : cursor.getString(ENTITY_CONTRACT.NAME.getIndex()));
+		setDescription(cursor.isNull(2) ? null :cursor.getString(ENTITY_CONTRACT.DESCRIPTION.getIndex()));
+		setAmount(cursor.isNull(3) ? -1.0 : cursor.getDouble(ENTITY_CONTRACT.AMOUNT.getIndex()));
+		setPaymentType(cursor.isNull(4) ? null : (PaymentType.get(cursor.getString(ENTITY_CONTRACT.PAYMENT_TYPE.getIndex()))));
+		setDate(cursor.isNull(5) ? -1 :cursor.getLong(ENTITY_CONTRACT.DATE.getIndex()));
 	}
 	
 	@Override

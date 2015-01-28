@@ -3,7 +3,6 @@ package com.naumenko.wimm.test;
 import java.util.ArrayList;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.naumenko.wimm.dao.SqliteWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
