@@ -2,32 +2,48 @@ package com.naumenko.wimm.dao.entity;
 
 public class Entity implements WimmEntity{
 	
+	protected long id;
 	protected String name;
 	protected String description;
 	protected double amount;
 	protected PaymentType type;
 	protected Long timeInMs;
 	
+	@Override
+	public long getId(){
+		return id;
+	}
+	
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public double getAmount() {
 		return amount;
 	}
 
+	@Override
 	public PaymentType getType() {
 		return type;
 	}
 
+	@Override
 	public Long getTimeInMs() {
 		return timeInMs;
 	}
-
+	
+	@Override
+	public void setId(long id){
+		this.id = id;
+	}
+	
 	@Override
 	public void setName(String name) {
 		this.name = name;
@@ -52,5 +68,4 @@ public class Entity implements WimmEntity{
 	public void setDate(Long timeInMs) {
 		this.timeInMs = timeInMs;
 	}
-
 }

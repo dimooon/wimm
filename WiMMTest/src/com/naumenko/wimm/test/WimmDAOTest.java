@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.test.AndroidTestCase;
 
+import com.naumenko.wimm.dao.SqliteDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
@@ -29,21 +30,23 @@ public class WimmDAOTest extends AndroidTestCase{
 	}
 	
 	public void testPreConditions(){
-		assertNotNull(dataAccessObject); 
+		assertNotNull(dataAccessObject);
+		assertNotNull(entity);
 	}
 	
 	public void testAddEntity(){
 		
 		assertTrue(dataAccessObject.addEntity(entity));
+		
 	}
 	
 	public void testUpdateEntity(){
 		
 		assertTrue(dataAccessObject.updateEntity(entity));
+		
 	}
 	
 	public void testDeleteEntity(){
-		
 		assertTrue(dataAccessObject.deleteEntity(entity));
 	}
 	
@@ -56,7 +59,7 @@ public class WimmDAOTest extends AndroidTestCase{
 	}
 	
 	private void initDAO(){
-		dataAccessObject = new StubDAO();
+		dataAccessObject = new SqliteDAO(getContext());
 		
 		entity = new StubEntity();
 		
