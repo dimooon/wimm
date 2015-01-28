@@ -60,10 +60,15 @@ public class WimmDAOTest extends AndroidTestCase{
 	
 	private void initDAO(){
 		dataAccessObject = new StubDAO();
+		
+		dataAccessObject.setName();
+		dataAccessObject.setDescription();
+		dataAccessObject.setAmount();
+		dataAccessObject.setPaymentType();
+		dataAccessObject.setDate();
 	}
 	
 	private void freeDAO(){
 		dataAccessObject = null;
 	}
-	
 }
