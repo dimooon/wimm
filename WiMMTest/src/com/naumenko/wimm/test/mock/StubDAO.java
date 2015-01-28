@@ -1,9 +1,9 @@
-package com.naumenko.wimm.dao;
+package com.naumenko.wimm.test.mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.naumenko.wimm.dao.entity.StubEntity;
+import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class StubDAO implements WimmDAO{

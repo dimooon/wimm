@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import android.test.AndroidTestCase;
 
-import com.naumenko.wimm.dao.StubDAO;
 import com.naumenko.wimm.dao.WimmDAO;
-import com.naumenko.wimm.dao.entity.StubEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
+import com.naumenko.wimm.test.mock.StubDAO;
+import com.naumenko.wimm.test.mock.StubEntity;
 
 public class WimmDAOTest extends AndroidTestCase{
 	
