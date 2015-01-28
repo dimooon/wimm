@@ -4,9 +4,9 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public interface WimmDAO {
 	
-	public void testAddEntity(WimmEntity entity);
-	public void testUpdateEntity(WimmEntity entity);
-	public void testDeleteEntity(WimmEntity entity);
-	public void testGetEntityList();
+	public void addEntity(WimmEntity entity);
+	public void updateEntity(WimmEntity entity);
+	public void deleteEntity(WimmEntity entity);
+	public void getEntityList();
 	
 }

@@ -5,23 +5,24 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 public class StubDAO implements WimmDAO{
 
 	@Override
-	public void testAddEntity(WimmEntity entity) {
+	public void addEntity(WimmEntity entity) {
 		
 	}
 
 	@Override
-	public void testUpdateEntity(WimmEntity entity) {
+	public void updateEntity(WimmEntity entity) {
 		
 	}
 
 	@Override
-	public void testDeleteEntity(WimmEntity entity) {
+	public void deleteEntity(WimmEntity entity) {
 		
 	}
 
 	@Override
-	public void testGetEntityList() {
+	public void getEntityList() {
 		
 	}
+
 
 }
