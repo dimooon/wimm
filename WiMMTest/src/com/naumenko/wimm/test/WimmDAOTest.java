@@ -1,10 +1,14 @@
 package com.naumenko.wimm.test;
 
+import com.naumenko.wimm.dao.WimmDAO;
+
 import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 public class WimmDAOTest extends AndroidTestCase{
-
+	
+	private WimmDAO dataAccessObject;
+	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
