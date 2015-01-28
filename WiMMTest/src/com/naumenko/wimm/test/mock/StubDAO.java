@@ -19,7 +19,7 @@ public class StubDAO implements WimmDAO{
 	}
 
 	@Override
-	public boolean deleteEntity(WimmEntity entity) {
+	public boolean deleteEntity(long id) {
 		return true;
 	}
 
