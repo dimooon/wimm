@@ -2,7 +2,6 @@ package com.naumenko.wimm.test;
 
 import java.util.ArrayList;
 
-import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 import com.naumenko.wimm.dao.StubDAO;

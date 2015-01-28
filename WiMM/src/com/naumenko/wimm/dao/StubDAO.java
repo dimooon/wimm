@@ -3,6 +3,7 @@ package com.naumenko.wimm.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.naumenko.wimm.dao.entity.StubEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class StubDAO implements WimmDAO{
@@ -24,6 +25,10 @@ public class StubDAO implements WimmDAO{
 
 	@Override
 	public List<WimmEntity> getEntityList() {
-		return new ArrayList<WimmEntity>();
+		
+		List<WimmEntity> entities = new ArrayList<WimmEntity>();
+		entities.add(new StubEntity());
+		
+		return entities;
 	}
 }
