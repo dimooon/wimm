@@ -2,3 +2,8 @@ WiMM/.classpath
 WiMM/.project
 WiMM/bin/
 WiMM/project.properties
+
+WiMMTest/.classpath
+WiMMTest/.project
+WiMMTest/bin/
+WiMMTest/project.properties
