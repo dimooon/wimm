@@ -12,7 +12,7 @@ import com.naumenko.wimm.test.mock.StubEntity;
 public class WimmDAOTest extends AndroidTestCase{
 	
 	private WimmDAO dataAccessObject;
-	
+	private WimmEntity entity;
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -61,11 +61,13 @@ public class WimmDAOTest extends AndroidTestCase{
 	private void initDAO(){
 		dataAccessObject = new StubDAO();
 		
-		dataAccessObject.setName();
-		dataAccessObject.setDescription();
-		dataAccessObject.setAmount();
-		dataAccessObject.setPaymentType();
-		dataAccessObject.setDate();
+		entity = new StubEntity();
+		
+		entity.setName();
+		entity.setDescription();
+		entity.setAmount();
+		entity.setPaymentType();
+		entity.setDate();
 	}
 	
 	private void freeDAO(){
