@@ -88,7 +88,12 @@ public class PaymentEntity implements WimmEntity, CursorParselable{
 
 	@Override
 	public void cursorToWimmEntity(Cursor cursor) {
-		
+		setId(cursor.getLong(0));
+		setName(cursor.getString(1));
+		setDescription(cursor.getString(2));
+		setAmount(cursor.getDouble(3));
+		setPaymentType((PaymentType.get(cursor.getString(4))));
+		setDate(cursor.getLong(5));
 	}
 	
 }

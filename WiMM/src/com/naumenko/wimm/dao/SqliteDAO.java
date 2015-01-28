@@ -90,13 +90,7 @@ public class SqliteDAO implements WimmDAO{
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
 		
-		WimmEntity entity = new PaymentEntity();
-		entity.setId(cursor.getLong(0));
-		entity.setName(cursor.getString(1));
-		entity.setDescription(cursor.getString(2));
-		entity.setAmount(cursor.getDouble(3));
-		entity.setPaymentType((PaymentType.get(cursor.getString(4))));
-		entity.setDate(cursor.getLong(5));
+		WimmEntity entity = new PaymentEntity(cursor);
 		
 		return entity;
 	}
