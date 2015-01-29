@@ -1,12 +1,13 @@
 package com.naumenko.wimm.test;
 
+import junit.framework.Assert;
 import android.test.ProviderTestCase2;
 
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
 
 public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvider>{
 
-	public WimmContentProviderTest(Class<WimmContentProvider> providerClass, String providerAuthority) {
+	public WimmContentProviderTest() {
 		super(WimmContentProvider.class, WimmContentProvider.CONTRACT.authority);
 	}
 
@@ -21,26 +22,27 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 	}
 
 	public void testPreConditions(){
-		
+		Assert.fail();
 	}
 		
 	public void testQuery() {
-
+		Assert.fail();
 	}
 	
 	public void testInsert() {
+		Assert.fail();
 	}
 	
 	public void testDelete() {
-		
+		Assert.fail();
 	}
 
 	public void testUpdate() {
-		
+		Assert.fail();
 	}
 	
 	public void testGetType() {
-		
+		Assert.fail();
 	}
 	
 }
