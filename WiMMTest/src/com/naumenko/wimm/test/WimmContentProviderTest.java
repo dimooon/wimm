@@ -1,44 +1,65 @@
 package com.naumenko.wimm.test;
 
 import junit.framework.Assert;
+import android.database.Cursor;
+import android.net.Uri;
+import android.test.IsolatedContext;
 import android.test.ProviderTestCase2;
+import android.test.mock.MockContentResolver;
 
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
 
 public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvider>{
 
+	private IsolatedContext context;
+	private MockContentResolver resolver;
+	
 	public WimmContentProviderTest() {
-		super(WimmContentProvider.class, WimmContentProvider.CONTRACT.authority);
+		super(WimmContentProvider.class, WimmContentProvider.CONTRACT.AUTHORITY);
 	}
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		
+		context = getMockContext();
+		resolver = getMockContentResolver();
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		
+		context = null;
+		resolver = null;
 	}
 
 	public void testPreConditions(){
-		Assert.fail();
+		assertNotNull(context);
+		assertNotNull(resolver);
 	}
 		
 	public void testQuery() {
-		Assert.fail();
+		Cursor cursor = resolver.query(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null, null, null);
+		
+		assertNotNull(cursor);
 	}
 	
 	public void testInsert() {
-		Assert.fail();
+		Uri uri =resolver.insert(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null);
+		assertNotNull(uri);
 	}
 	
 	public void testDelete() {
-		Assert.fail();
+		int count =resolver.delete(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null);
+		
+		assertTrue(count > 0);
 	}
 
 	public void testUpdate() {
-		Assert.fail();
+		int count = resolver.update(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null, null);
+		
+		assertTrue(count > 0);
 	}
 	
 	public void testGetType() {

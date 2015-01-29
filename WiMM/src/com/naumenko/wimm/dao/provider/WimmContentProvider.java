@@ -39,7 +39,9 @@ public class WimmContentProvider extends ContentProvider{
 	
 	public static class CONTRACT {
 		
-		public static final String authority = "";
+		public static final String AUTHORITY = "com.naumenko.wimm";
+		public static final String PATH = "wimm";
+		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + PATH);
 		
 	}
 	

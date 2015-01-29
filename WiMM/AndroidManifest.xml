@@ -12,6 +12,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <provider
+            android:name="com.naumenko.wimm.dao.provider.WimmContentProvider"
+            android:authorities="com.naumenko.wimm"
+            android:exported="false" />
+        
     </application>
 
 </manifest>
