@@ -32,12 +32,12 @@ public class EntityTable {
 		DATABASE_VERSION("1"),
 		
 		TABLE_NAME("wimm_entity"),
-		ID("_id",0),
-		NAME("wimm_entity_name",1),
-		DESCRIPTION("wimm_entity_description",2),
-		AMOUNT("wimm_entity_amount",3),
-		PAYMENT_TYPE("wimm_entity_payment_type",4),
-		DATE("wimm_entity_date",5);
+		COLUMN_ID("_id",0),
+		COLUMN_NAME("wimm_entity_name",1),
+		COLUMN_DESCRIPTION("wimm_entity_description",2),
+		COLUMN_AMOUNT("wimm_entity_amount",3),
+		COLUMN_PAYMENT_TYPE("wimm_entity_payment_type",4),
+		COLUMN_DATE("wimm_entity_date",5);
 
 		private String contractKey;
 		private int index;
@@ -61,12 +61,12 @@ public class EntityTable {
 		
 		public String[] getSelectionAllFields(){
 			return new String[]{
-				ID.getContractKey(),
-				NAME.getContractKey(),
-				DESCRIPTION.getContractKey(),
-				AMOUNT.getContractKey(),
-				PAYMENT_TYPE.getContractKey(),
-				DATE.getContractKey()};
+				COLUMN_ID.getContractKey(),
+				COLUMN_NAME.getContractKey(),
+				COLUMN_DESCRIPTION.getContractKey(),
+				COLUMN_AMOUNT.getContractKey(),
+				COLUMN_PAYMENT_TYPE.getContractKey(),
+				COLUMN_DATE.getContractKey()};
 		}
 	}
 }

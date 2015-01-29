@@ -28,11 +28,11 @@ public class SqliteWimmDAO implements WimmDAO{
 		open();
 		
 		ContentValues values = new ContentValues();
-	    values.put(ENTITY_CONTRACT.NAME.getContractKey(), entity.getName());
-	    values.put(ENTITY_CONTRACT.DESCRIPTION.getContractKey(), entity.getDescription());
-	    values.put(ENTITY_CONTRACT.AMOUNT.getContractKey(), entity.getAmount());
-	    values.put(ENTITY_CONTRACT.PAYMENT_TYPE.getContractKey(), entity.getType().getTypeRepresentation());
-	    values.put(ENTITY_CONTRACT.DATE.getContractKey(), entity.getTimeInMs());
+	    values.put(ENTITY_CONTRACT.COLUMN_NAME.getContractKey(), entity.getName());
+	    values.put(ENTITY_CONTRACT.COLUMN_DESCRIPTION.getContractKey(), entity.getDescription());
+	    values.put(ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(), entity.getAmount());
+	    values.put(ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(), entity.getType().getTypeRepresentation());
+	    values.put(ENTITY_CONTRACT.COLUMN_DATE.getContractKey(), entity.getTimeInMs());
 	    
 	    long insertId = database.insert(ENTITY_CONTRACT.TABLE_NAME.getContractKey(), null, values);
 	    
@@ -53,7 +53,7 @@ public class SqliteWimmDAO implements WimmDAO{
 		
 	    int count = database.delete(
 	    			ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
-	    			ENTITY_CONTRACT.ID.getContractKey() + " = " + id, 
+	    			ENTITY_CONTRACT.COLUMN_ID.getContractKey() + " = " + id, 
 	    			null);
 		
 	    close();
@@ -83,7 +83,7 @@ public class SqliteWimmDAO implements WimmDAO{
 		Cursor cursor = database.query(
 				ENTITY_CONTRACT.TABLE_NAME.getContractKey(),
 				ENTITY_CONTRACT.CONTRACT.getSelectionAllFields(), 
-				ENTITY_CONTRACT.ID.getContractKey() + " = " + id, 
+				ENTITY_CONTRACT.COLUMN_ID.getContractKey() + " = " + id, 
 				null,
 		        null,
 		        null,
