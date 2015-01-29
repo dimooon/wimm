@@ -10,9 +10,9 @@ import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
-public class WimmDAOTest extends AndroidTestCase{
+public class WimmDAOviaDatabaseTest extends AndroidTestCase{
 	
-	private static final String TAG = WimmDAOTest.class.getSimpleName();
+	private static final String TAG = WimmDAOviaDatabaseTest.class.getSimpleName();
 	private WimmDAO dataAccessObject;
 	private WimmEntity entity;
 	@Override

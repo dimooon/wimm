@@ -1,6 +1,6 @@
 package com.naumenko.wimm.dao.entity;
 
-import com.naumenko.wimm.db.ENTITY_CONTRACT;
+import com.naumenko.wimm.dao.db.ENTITY_CONTRACT;
 
 import android.database.Cursor;
 

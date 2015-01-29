@@ -1,4 +1,4 @@
-package com.naumenko.wimm.db;
+package com.naumenko.wimm.dao.db;
 
 public enum ENTITY_CONTRACT{
 	

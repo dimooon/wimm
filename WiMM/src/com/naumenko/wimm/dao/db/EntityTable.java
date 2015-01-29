@@ -1,4 +1,4 @@
-package com.naumenko.wimm.db;
+package com.naumenko.wimm.dao.db;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
