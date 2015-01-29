@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
 
 public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvider>{
@@ -88,13 +89,39 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 	}
 
 	public void testUpdate() {
-		int count = resolver.update(WimmContentProvider.CONTRACT.CONTENT_URI, entity.getConvertedContentValues(), null, null);
+		
+		Uri uri = resolver.insert(WimmContentProvider.CONTRACT.CONTENT_URI, entity.getConvertedContentValues());
+		
+		assertTrue(uri != null);		
+		
+		int id = Integer.valueOf(uri.getLastPathSegment());
+		
+		assertTrue(id > 0);
+		
+		WimmEntity updateEntity = new PaymentWimmEntity();
+		
+		updateEntity.setId(id);
+		updateEntity.setName("rope");
+		updateEntity.setDescription(entity.getDescription());
+		updateEntity.setAmount(entity.getAmount());
+		updateEntity.setPaymentType(entity.getType());
+		updateEntity.setDate(entity.getTimeInMs());
+		
+		int count = resolver.update(
+				WimmContentProvider.CONTRACT.CONTENT_URI, 
+				updateEntity.getConvertedContentValues(), 
+				String.valueOf(updateEntity.getId()), 
+				null);
 		
 		assertTrue(count > 0);
+		entity.setId(id);
+		
+		assertNotSame(entity, updateEntity);
 	}
 	
 	public void testGetType() {
-		Assert.fail();
+ 		String type = resolver.getType(WimmContentProvider.CONTRACT.CONTENT_URI);
+ 		assertNotNull(type);
 	}
 	
 	private void printCursorData(Cursor cursor){

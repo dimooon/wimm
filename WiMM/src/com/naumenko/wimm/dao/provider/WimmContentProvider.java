@@ -11,9 +11,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.db.WimmSQLiteHelper;
+import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmContentProvider extends ContentProvider{
 
@@ -113,15 +115,19 @@ public class WimmContentProvider extends ContentProvider{
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+		
 		int uriType = CONTRACT.URIMatcher.match(uri);
 	    SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
 	    int rowsUpdated = 0;
 	    switch (uriType) {
 	    case CONTRACT.ENTITY_CODE:
+	    	
+	    Log.e("TAG", ""+values.getAsString(EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey()));
+	    	
 	      rowsUpdated = sqlDB.update(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
 	          values, 
-	          selection,
-	          selectionArgs);
+	          EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + selection,
+	          null);
 	      break;
 	    case CONTRACT.ENTITY_ID_CODE:
 	      String id = uri.getLastPathSegment();
@@ -142,6 +148,7 @@ public class WimmContentProvider extends ContentProvider{
 	    default:
 	      throw new IllegalArgumentException("Unknown URI: " + uri);
 	    }
+	    
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    
 	    return rowsUpdated;
@@ -149,7 +156,7 @@ public class WimmContentProvider extends ContentProvider{
 	
 	@Override
 	public String getType(Uri uri) {
-		return null;
+		return WimmEntity.class.getCanonicalName();
 	}
 	
 	public static class CONTRACT {
