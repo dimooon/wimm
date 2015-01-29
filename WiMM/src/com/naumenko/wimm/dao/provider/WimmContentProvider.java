@@ -10,10 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.db.WimmSQLiteHelper;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 
 public class WimmContentProvider extends ContentProvider{
 
@@ -59,17 +59,92 @@ public class WimmContentProvider extends ContentProvider{
 	
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		return null;
+		
+		int uriType = CONTRACT.URIMatcher.match(uri);
+	    SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();	    
+
+	    long id = 0;
+	    
+	    switch (uriType) {
+	    
+	    case CONTRACT.ENTITY_CODE:
+	      id = sqlDB.insert(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), null, values);
+	      break;
+	    default:
+	      throw new IllegalArgumentException("Unknown URI: " + uri);
+	    }
+	    getContext().getContentResolver().notifyChange(uri, null);
+	    
+	    return Uri.parse(CONTRACT.PATH + "/" + id);
 	}
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		return 0;
+		
+		int uriType = CONTRACT.URIMatcher.match(uri);
+	    SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
+	    int rowsDeleted = 0;
+	    switch (uriType) {
+	    case CONTRACT.ENTITY_CODE:
+	      rowsDeleted = sqlDB.delete(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), selection, selectionArgs);
+	      break;
+	    case CONTRACT.ENTITY_ID_CODE:
+	      String id = uri.getLastPathSegment();
+	      if (TextUtils.isEmpty(selection)) {
+	        rowsDeleted = sqlDB.delete(
+	        		EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	        		EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + id, 
+	        		null);
+	      } else {
+	        rowsDeleted = sqlDB.delete(
+	        	EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(),
+	        	EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + id 
+	            + " and " + selection,
+	            selectionArgs);
+	      }
+	      break;
+	    default:
+	      throw new IllegalArgumentException("Unknown URI: " + uri);
+	    }
+	    getContext().getContentResolver().notifyChange(uri, null);
+	    
+	    return rowsDeleted;
 	}
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-		return 0;
+		int uriType = CONTRACT.URIMatcher.match(uri);
+	    SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
+	    int rowsUpdated = 0;
+	    switch (uriType) {
+	    case CONTRACT.ENTITY_CODE:
+	      rowsUpdated = sqlDB.update(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	          values, 
+	          selection,
+	          selectionArgs);
+	      break;
+	    case CONTRACT.ENTITY_ID_CODE:
+	      String id = uri.getLastPathSegment();
+	      if (TextUtils.isEmpty(selection)) {
+	        rowsUpdated = sqlDB.update(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	            values,
+	            EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + id, 
+	            null);
+	      } else {
+	        rowsUpdated = sqlDB.update(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), 
+	            values,
+	            EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + id + "=" + id 
+	            + " and " 
+	            + selection,
+	            selectionArgs);
+	      }
+	      break;
+	    default:
+	      throw new IllegalArgumentException("Unknown URI: " + uri);
+	    }
+	    getContext().getContentResolver().notifyChange(uri, null);
+	    
+	    return rowsUpdated;
 	}
 	
 	@Override

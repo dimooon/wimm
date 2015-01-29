@@ -40,24 +40,27 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 	}
 		
 	public void testQuery() {
-		Cursor cursor = resolver.query(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null, null, null);
+		Cursor cursor = resolver.query(WimmContentProvider.CONTRACT.CONTENT_URI, null, null, null, null);
 		
 		assertNotNull(cursor);
+		assertTrue(cursor.getColumnCount() > 0);
 	}
 	
 	public void testInsert() {
-		Uri uri =resolver.insert(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null);
+		Uri uri =resolver.insert(WimmContentProvider.CONTRACT.CONTENT_URI, null);
 		assertNotNull(uri);
 	}
 	
 	public void testDelete() {
-		int count =resolver.delete(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null);
 		
+		Uri uri =resolver.insert(WimmContentProvider.CONTRACT.CONTENT_URI, null);
+		
+		int count =resolver.delete(uri, null, null);
 		assertTrue(count > 0);
 	}
 
 	public void testUpdate() {
-		int count = resolver.update(Uri.parse(WimmContentProvider.CONTRACT.CONTENT_URI+"/0"), null, null, null);
+		int count = resolver.update(WimmContentProvider.CONTRACT.CONTENT_URI, null, null, null);
 		
 		assertTrue(count > 0);
 	}
