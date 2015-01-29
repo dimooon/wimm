@@ -86,7 +86,7 @@ public class WimmContentProvider extends ContentProvider{
 	    int rowsDeleted = 0;
 	    switch (uriType) {
 	    case CONTRACT.ENTITY_CODE:
-	      rowsDeleted = sqlDB.delete(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), selection, selectionArgs);
+	      rowsDeleted = sqlDB.delete(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + selection, selectionArgs);
 	      break;
 	    case CONTRACT.ENTITY_ID_CODE:
 	      String id = uri.getLastPathSegment();

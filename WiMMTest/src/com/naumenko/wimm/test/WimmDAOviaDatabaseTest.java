@@ -12,7 +12,6 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmDAOviaDatabaseTest extends AndroidTestCase{
 	
-	private static final String TAG = WimmDAOviaDatabaseTest.class.getSimpleName();
 	private WimmDAO dataAccessObject;
 	private WimmEntity entity;
 	@Override
@@ -57,8 +56,29 @@ public class WimmDAOviaDatabaseTest extends AndroidTestCase{
 	
 	public void testUpdateEntity(){
 		
-		assertTrue(dataAccessObject.updateEntity(entity));
+		WimmEntity updatedEntity = new PaymentWimmEntity();
 		
+		long id = dataAccessObject.addEntity(entity);
+		
+		updatedEntity.setName("cucamber");
+		
+		updatedEntity.setId(id);
+		
+		updatedEntity.setDescription("just a potato");
+		updatedEntity.setAmount(15.56);
+		updatedEntity.setPaymentType(PaymentType.PAY);
+		updatedEntity.setDate(System.currentTimeMillis());
+		
+		assertTrue(dataAccessObject.updateEntity(updatedEntity));
+		
+		WimmEntity updatedFromDatabase = dataAccessObject.getEntity(updatedEntity.getId());
+		
+		assertEquals(updatedEntity, updatedFromDatabase);
+		
+		entity.setId(id);
+		
+		assertNotSame(entity, updatedEntity);
+		assertNotSame(entity, updatedFromDatabase);
 	}
 	
 	public void testDeleteEntity(){

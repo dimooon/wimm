@@ -3,7 +3,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,14 +26,7 @@ public class SqliteWimmDAO implements WimmDAO{
 		
 		open();
 		
-		ContentValues values = new ContentValues();
-	    values.put(ENTITY_CONTRACT.COLUMN_NAME.getContractKey(), entity.getName());
-	    values.put(ENTITY_CONTRACT.COLUMN_DESCRIPTION.getContractKey(), entity.getDescription());
-	    values.put(ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(), entity.getAmount());
-	    values.put(ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(), entity.getType().getTypeRepresentation());
-	    values.put(ENTITY_CONTRACT.COLUMN_DATE.getContractKey(), entity.getTimeInMs());
-	    
-	    long insertId = database.insert(ENTITY_CONTRACT.TABLE_NAME.getContractKey(), null, values);
+	    long insertId = database.insert(ENTITY_CONTRACT.TABLE_NAME.getContractKey(), null, entity.getConvertedContentValues());
 	    
 	    close();
 	    
@@ -43,7 +35,18 @@ public class SqliteWimmDAO implements WimmDAO{
 
 	@Override
 	public boolean updateEntity(WimmEntity entity) {
-		return false;
+		
+		open();
+		
+		int updatedRawCount = database.update(
+				ENTITY_CONTRACT.TABLE_NAME.getContractKey(),
+				entity.getConvertedContentValues(),
+				ENTITY_CONTRACT.COLUMN_ID.getContractKey() + " = " + entity.getId(),
+				null);
+		
+		close();
+		
+		return updatedRawCount > 0;
 	}
 
 	@Override

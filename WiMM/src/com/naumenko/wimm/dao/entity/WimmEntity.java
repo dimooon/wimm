@@ -1,6 +1,6 @@
 package com.naumenko.wimm.dao.entity;
 
-public interface WimmEntity {
+public interface WimmEntity extends CursorParselable, ContentValuesConvertable {
 
 	public long getId();
 	public void setName(String name);

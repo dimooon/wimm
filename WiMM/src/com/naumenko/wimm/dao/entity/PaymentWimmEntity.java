@@ -1,10 +1,12 @@
 package com.naumenko.wimm.dao.entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
 
-public class PaymentWimmEntity implements WimmEntity, CursorParselable{
+public class PaymentWimmEntity implements WimmEntity{
 	
 	protected long id;
 	protected String name;
@@ -102,6 +104,21 @@ public class PaymentWimmEntity implements WimmEntity, CursorParselable{
 		setAmount(cursor.isNull(3) ? -1.0 : cursor.getDouble(ENTITY_CONTRACT.COLUMN_AMOUNT.getIndex()));
 		setPaymentType(cursor.isNull(4) ? null : (PaymentType.get(cursor.getString(ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getIndex()))));
 		setDate(cursor.isNull(5) ? -1 :cursor.getLong(ENTITY_CONTRACT.COLUMN_DATE.getIndex()));
+	}
+	
+
+	@Override
+	public ContentValues getConvertedContentValues() {
+		
+		ContentValues contentValuesExpression = new ContentValues();
+		
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_NAME.getContractKey(), getName());
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_DESCRIPTION.getContractKey(), getDescription());
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(), getAmount());
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(), getType().getTypeRepresentation());
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_DATE.getContractKey(), getTimeInMs());
+		
+		return contentValuesExpression;
 	}
 	
 	@Override
