@@ -8,7 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.naumenko.wimm.dao.db.ENTITY_CONTRACT;
+import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
 import com.naumenko.wimm.dao.db.WimmSQLiteHelper;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;

@@ -1,8 +1,8 @@
 package com.naumenko.wimm.dao.entity;
 
-import com.naumenko.wimm.dao.db.ENTITY_CONTRACT;
-
 import android.database.Cursor;
+
+import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
 
 public class PaymentWimmEntity implements WimmEntity, CursorParselable{
 	

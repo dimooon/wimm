@@ -36,5 +36,11 @@ public class WimmContentProvider extends ContentProvider{
 	public String getType(Uri uri) {
 		return null;
 	}
-
+	
+	public static class CONTRACT {
+		
+		public static final String authority = "";
+		
+	}
+	
 }
