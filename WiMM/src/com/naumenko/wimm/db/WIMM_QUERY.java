@@ -1,6 +1,7 @@
 package com.naumenko.wimm.db;
 
 public enum WIMM_QUERY{
+	
 	CREATE_DATABASE(
 			"create table " + ENTITY_CONTRACT.TABLE_NAME.getContractKey() + 
 			"(" + ENTITY_CONTRACT.ID.getContractKey() + " integer primary key autoincrement, " + 

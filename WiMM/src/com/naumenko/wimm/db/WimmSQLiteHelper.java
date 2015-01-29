@@ -9,27 +9,26 @@ public class WimmSQLiteHelper extends SQLiteOpenHelper{
 
 	private static final String TAG = WimmSQLiteHelper.class.getSimpleName();
 	
+	private EntityTable entityTable;
+	
 	public WimmSQLiteHelper(Context context) {
 		super(context, 
 				ENTITY_CONTRACT.DATABASE_NAME.getContractKey(), 
 				null, 
 				Integer.valueOf(ENTITY_CONTRACT.DATABASE_VERSION.getContractKey()));
+		
+		entityTable = new EntityTable();
+		
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(WIMM_QUERY.CREATE_DATABASE.getQueryString());
+		entityTable.onCreate(db);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
-		Log.w(TAG,
-		        "Upgrading database from version " + oldVersion + " to "
-		            + newVersion + ", which will destroy all old data");
-		
-		db.execSQL(WIMM_QUERY.DROP_TABLE_IF_EXISTS.getQueryString());
-	    onCreate(db);
+		entityTable.onUpgrade(db, oldVersion, newVersion);
 	}
 
 }
