@@ -8,11 +8,11 @@ public class EntityTable {
 	
 	private static final String TAG = EntityTable.class.getSimpleName();
 
-	public void onCreate(SQLiteDatabase db) {
+	public static void onCreate(SQLiteDatabase db) {
 		db.execSQL(WIMM_QUERY.CREATE_DATABASE.getQueryString());
 	}
 
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
 		Log.w(TAG,
 		        "Upgrading database from version " + oldVersion + " to "
