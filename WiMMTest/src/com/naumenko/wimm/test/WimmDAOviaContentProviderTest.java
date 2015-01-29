@@ -3,9 +3,9 @@ package com.naumenko.wimm.test;
 import java.util.ArrayList;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.naumenko.wimm.dao.ContentProviderWimmDAO;
-import com.naumenko.wimm.dao.SqliteWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
@@ -13,7 +13,6 @@ import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 
-	private static final String TAG = WimmDAOviaDatabaseTest.class.getSimpleName();
 	private WimmDAO dataAccessObject;
 	private WimmEntity entity;
 	@Override
@@ -49,7 +48,7 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 		
 		entity.setId(insertId);
 		
-		WimmEntity insertedBeforeEntity = dataAccessObject.getEntity(insertId);
+		WimmEntity insertedBeforeEntity = dataAccessObject.getEntity(entity.getId());
 		
 		assertTrue(insertedBeforeEntity.isValid());
 		assertEquals(entity, insertedBeforeEntity);
@@ -57,6 +56,12 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 	}
 	
 	public void testUpdateEntity(){
+		
+		long id  = dataAccessObject.addEntity(entity);
+		
+		assertTrue(id > 0);
+		
+		entity.setId(id);
 		
 		assertTrue(dataAccessObject.updateEntity(entity));
 		
@@ -69,17 +74,6 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 		assertTrue(dataAccessObject.deleteEntity((entityId)));
 	}
 	
-	public void testClear(){
-		
-		dataAccessObject.addEntity(entity);
-		dataAccessObject.addEntity(entity);
-		dataAccessObject.addEntity(entity);
-		
-		int deletedCount = dataAccessObject.clear();
-		
-		assertTrue(deletedCount > 2);
-	}
-	
 	public void testGetEntityList(){
 		
 		dataAccessObject.addEntity(entity);
@@ -90,10 +84,14 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 		assertNotNull(entityList);
 		assertFalse(entityList.isEmpty());
 		
+		for (WimmEntity wimmEntity : entityList) {
+			Log.e("TAG", ""+wimmEntity);
+		}
+		
 	}
 	
 	private void initDAO(){
-		dataAccessObject = new ContentProviderWimmDAO();
+		dataAccessObject = new ContentProviderWimmDAO(getContext());
 		
 		entity = new PaymentWimmEntity();
 		

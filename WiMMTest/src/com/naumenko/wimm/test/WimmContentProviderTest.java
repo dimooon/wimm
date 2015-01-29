@@ -1,6 +1,5 @@
 package com.naumenko.wimm.test;
 
-import junit.framework.Assert;
 import android.database.Cursor;
 import android.net.Uri;
 import android.test.IsolatedContext;
@@ -59,7 +58,13 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 		
 	public void testQuery() {
 		
-		resolver.insert(WimmContentProvider.CONTRACT.CONTENT_URI, entity.getConvertedContentValues());
+		Uri uri = resolver.insert(WimmContentProvider.CONTRACT.CONTENT_URI, entity.getConvertedContentValues());
+		
+		assertNotNull(uri);
+		
+		long id = Long.valueOf(uri.getLastPathSegment());
+		
+		assertTrue(id > 0);
 		
 		Cursor cursor = resolver.query(WimmContentProvider.CONTRACT.CONTENT_URI, null, null, null, null);
 		
