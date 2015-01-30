@@ -32,7 +32,6 @@ public class EntityListAdapter extends BaseAdapter{
 
 	private ArrayList<WimmEntity> entities;
 	private Activity activity;
-	private int currentPosition;
 	
 	public EntityListAdapter(Activity context, List<WimmEntity> createdItems) {
 		this.entities = new ArrayList<WimmEntity>();
@@ -62,8 +61,6 @@ public class EntityListAdapter extends BaseAdapter{
 		final EntityItemViewHolder viewHolder;
 	    
 		View view = convertView;
-		
-		currentPosition = position;
 		
 	    if(view==null){
 	        
@@ -97,10 +94,11 @@ public class EntityListAdapter extends BaseAdapter{
 			});
 	        
 	        
-	        view.setTag(viewHolder);
+	        view.setTag(R.id.holder,viewHolder);
+	        view.setTag(R.id.position,position);
 	         
 	    }else{
-	        viewHolder = (EntityItemViewHolder) view.getTag();
+	        viewHolder = (EntityItemViewHolder) view.getTag(R.id.holder);
 	    }
 	    
 	    view.setOnTouchListener(new MyTouchListener());
@@ -137,7 +135,7 @@ public class EntityListAdapter extends BaseAdapter{
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			
-			EntityItemViewHolder holder = (EntityItemViewHolder) v.getTag();
+			EntityItemViewHolder holder = (EntityItemViewHolder) v.getTag(R.id.holder);
 			int action = event.getAction();
 
 			boolean processed = (difference > -1 && difference <=3);
@@ -159,7 +157,7 @@ public class EntityListAdapter extends BaseAdapter{
 				Log.d("action", "ACTION_UP - ");
 				
 				if(processed){
-					WimmApplication.setSelectedEntity((WimmEntity)getItem(currentPosition));
+					WimmApplication.setSelectedEntity((WimmEntity)getItem(Integer.valueOf(v.getTag(R.id.position).toString())));
 					startInfoFragment();
 				}
 				
