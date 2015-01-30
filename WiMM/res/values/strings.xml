@@ -2,6 +2,6 @@
 
     <string name="app_name">WiMM</string>
 	<string name="entity_list_item_title_pattern">%1$s: %2$s grn</string>
-    <string name="entity_list_item_description_pattern">%1$s? : %2$s</string>
+    <string name="entity_list_item_description_pattern">%1$s : %2$s</string>
 	
 </resources>
