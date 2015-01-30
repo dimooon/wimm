@@ -53,6 +53,7 @@ public class CreateEntityFragment extends Fragment implements View.OnClickListen
 		type.setOnItemSelectedListener(this);
 		
 		entity = new PaymentWimmEntity();
+		
 	}
 	
 	@Override

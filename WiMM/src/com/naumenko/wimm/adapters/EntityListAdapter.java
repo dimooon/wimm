@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,15 +21,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.naumenko.wimm.R;
+import com.naumenko.wimm.WimmApplication;
 import com.naumenko.wimm.dao.ContentProviderWimmDAO;
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
+import com.naumenko.wimm.fragment.EntityPreviewFragment;
 
 public class EntityListAdapter extends BaseAdapter{
 
 	private ArrayList<WimmEntity> entities;
 	private Activity activity;
+	private int currentPosition;
 	
 	public EntityListAdapter(Activity context, List<WimmEntity> createdItems) {
 		this.entities = new ArrayList<WimmEntity>();
@@ -58,6 +62,8 @@ public class EntityListAdapter extends BaseAdapter{
 		final EntityItemViewHolder viewHolder;
 	    
 		View view = convertView;
+		
+		currentPosition = position;
 		
 	    if(view==null){
 	        
@@ -134,6 +140,10 @@ public class EntityListAdapter extends BaseAdapter{
 			EntityItemViewHolder holder = (EntityItemViewHolder) v.getTag();
 			int action = event.getAction();
 
+			boolean processed = (difference > -1 && difference <=3);
+			
+			Log.e("TAG", "processed: "+processed+ " differences: "+difference);
+			
 			switch (action) {
 			case MotionEvent.ACTION_DOWN:
 				action_down_x = (int) event.getX();
@@ -147,9 +157,16 @@ public class EntityListAdapter extends BaseAdapter{
 				break;
 			case MotionEvent.ACTION_UP:
 				Log.d("action", "ACTION_UP - ");
+				
+				if(processed){
+					WimmApplication.setSelectedEntity((WimmEntity)getItem(currentPosition));
+					startInfoFragment();
+				}
+				
 				action_down_x = 0;
 				action_up_x = 0;
 				difference = 0;
+				
 				break;
 			}
 			return true;
@@ -157,8 +174,9 @@ public class EntityListAdapter extends BaseAdapter{
     }
 
 	private void calcuateDifference(final EntityItemViewHolder holder) {
+		
 		activity.runOnUiThread(new Runnable() {
-
+			
 			@Override
 			public void run() {
 				if (difference > 75) {
@@ -171,7 +189,18 @@ public class EntityListAdapter extends BaseAdapter{
 				}
 			}
 		});
+		
 	}
 	
+	private void startInfoFragment(){
+		EntityPreviewFragment newFragment = new EntityPreviewFragment();
+
+		FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+
+		transaction.replace(R.id.main_activity_root, newFragment);
+		transaction.addToBackStack(null);
+
+		transaction.commit();
+	}
 	
 }
