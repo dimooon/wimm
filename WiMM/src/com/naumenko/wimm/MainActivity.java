@@ -1,9 +1,11 @@
 package com.naumenko.wimm;
 
-import com.naumenko.wimm.fragment.MainScreenFragment;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.naumenko.wimm.dao.ContentProviderWimmDAO;
+import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.fragment.WimmFragmentManager;
 
 public class MainActivity extends Activity{
 
@@ -11,19 +13,19 @@ public class MainActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
-		addMainFragment(savedInstanceState);	
+		
+		initFragmentManager();
+		initDAO();
+		
+		WimmApplication.getFragmentManager().addMainFragment(savedInstanceState);
 	}
 	
-	private void addMainFragment(Bundle savedInstanceState){
-		if (savedInstanceState != null) {
-            return;
-        }
-
-        MainScreenFragment firstFragment = new MainScreenFragment();
-        
-        firstFragment.setArguments(getIntent().getExtras());
-        
-        getFragmentManager().beginTransaction().add(R.id.main_activity_root, firstFragment).commit();
+	private void initFragmentManager(){
+		WimmFragmentManager manager = new WimmFragmentManager(this);
+		WimmApplication.setFragmentManager(manager);
 	}
-	
+	private void initDAO(){
+		WimmDAO dao = new ContentProviderWimmDAO(this);
+		WimmApplication.setDAO(dao);
+	}
 }

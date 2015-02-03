@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -16,12 +17,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.naumenko.wimm.R;
-import com.naumenko.wimm.dao.ContentProviderWimmDAO;
+import com.naumenko.wimm.WimmApplication;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
-public class CreateEntityFragment extends Fragment implements View.OnClickListener, OnItemSelectedListener{
+public class CreateEntityFragment extends Fragment{
 	
 	private WimmEntity entity;
 	private EditText name;
@@ -31,15 +32,41 @@ public class CreateEntityFragment extends Fragment implements View.OnClickListen
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
-	
 		return inflater.inflate(R.layout.create_entity_fragment, container,false);
 	}
+	
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+
+		initView();
 		
-		getView().findViewById(R.id.start_create_button).setOnClickListener(this);
+		entity = new PaymentWimmEntity();
+		
+	}
+	
+	private void initView(){
+		
+		initCreateButton();
+		initSimpleFields();
+		initTypeSpinner();
+	}
+	
+	private void initCreateButton(){
+		getView().findViewById(R.id.start_create_button).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				createEntity();			
+			}
+		});
+	}
+	
+	private void initSimpleFields(){
 		name = (EditText) getView().findViewById(R.id.columnt_name);
 		description = (EditText) getView().findViewById(R.id.columnt_description);
 		amount = (EditText) getView().findViewById(R.id.columnt_amount);
+	}
+	
+	private void initTypeSpinner(){
 		type =  (Spinner) getView().findViewById(R.id.column_type);
 		
 		List<String> list = new ArrayList<String>();
@@ -49,25 +76,21 @@ public class CreateEntityFragment extends Fragment implements View.OnClickListen
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
 		
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
 		type.setAdapter(dataAdapter);
-		type.setOnItemSelectedListener(this);
-		
-		entity = new PaymentWimmEntity();
-		
+		type.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				entity.setPaymentType(PaymentType.get(String.valueOf(position)));
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				entity.setPaymentType(PaymentType.PAY);
+			}
+			
+		});
 	}
-	
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.start_create_button:
-			
-			createEntity();
-			
-			break;
-		default:
-			break;
-		}
-	};
 	
 	private void createEntity(){
 		
@@ -75,6 +98,7 @@ public class CreateEntityFragment extends Fragment implements View.OnClickListen
 			name.setError(Html.fromHtml("<font color='red'>Name cannot be empty</font>"));
 			return;
 		}
+		
 		if(amount.getText().length() == 0){
 			amount.setError(Html.fromHtml("<font color='red'>Amount cannot be empty</font>"));
 			return;
@@ -85,17 +109,9 @@ public class CreateEntityFragment extends Fragment implements View.OnClickListen
 		entity.setAmount(Double.parseDouble(amount.getText().toString()));
 		entity.setDate(System.currentTimeMillis());
 		
-		new ContentProviderWimmDAO(getActivity()).addEntity(entity);
+		WimmApplication.getDAO().addEntity(entity);
 		
 		getActivity().onBackPressed();
-		
 	}
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-		entity.setPaymentType(PaymentType.get(String.valueOf(position)));
-	}
-	@Override
-	public void onNothingSelected(AdapterView<?> parent) {
-		entity.setPaymentType(PaymentType.PAY);
-	}	
+
 }

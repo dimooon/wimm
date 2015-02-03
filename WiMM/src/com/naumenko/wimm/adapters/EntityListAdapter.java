@@ -6,29 +6,22 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.naumenko.wimm.R;
 import com.naumenko.wimm.WimmApplication;
-import com.naumenko.wimm.dao.ContentProviderWimmDAO;
-import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.entity.WimmEntity;
-import com.naumenko.wimm.dao.provider.WimmContentProvider;
-import com.naumenko.wimm.fragment.EntityPreviewFragment;
+import com.naumenko.wimm.view.WimmGestureListener;
+import com.naumenko.wimm.view.WimmTouchListener;
 
-public class EntityListAdapter extends BaseAdapter{
+public class EntityListAdapter extends BaseAdapter implements WimmGestureListener{
 
 	private ArrayList<WimmEntity> entities;
 	private Activity activity;
@@ -39,7 +32,6 @@ public class EntityListAdapter extends BaseAdapter{
 		
 		this.activity = context;
 	}
-	
 	
 	@Override
 	public int getCount() {
@@ -70,42 +62,20 @@ public class EntityListAdapter extends BaseAdapter{
 	        
 	        LayoutInflater inflater = this.activity.getLayoutInflater();
 	        view = inflater.inflate(R.layout.entities_list_item, parent, false);
-	         
+	        
+	        view.setTag(R.id.position,position);
+	        
 	        viewHolder = new EntityItemViewHolder();
-	        viewHolder.icon = (ImageView) view.findViewById(R.id.icon);
-	        viewHolder.title = (TextView) view.findViewById(R.id.firstLine);
-	        viewHolder.descriprion = (TextView) view.findViewById(R.id.secondLine);
-	        viewHolder.buttonRemove = (Button) view.findViewById(R.id.entity_item_delete);
-	        viewHolder.content = view.findViewById(R.id.entity_item_content);
-	        
-	        viewHolder.buttonRemove.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View view) {
-					
-					activity.getContentResolver().delete(
-							WimmContentProvider.CONTRACT.CONTENT_URI,
-							String.valueOf(entities.get(position).getId()),
-							null);
-					
-					view.setVisibility(View.GONE);
-					entities.remove(position);
-					Log.e("TAG", "position "+position);
-					notifyDataSetChanged();
-					viewHolder.content.setVisibility(View.VISIBLE);
-					viewHolder.buttonRemove.setVisibility(View.GONE);
-				}
-			});
-	        
+	        viewHolder.init(view);
 	        
 	        view.setTag(R.id.holder,viewHolder);
-	        view.setTag(R.id.position,position);
-	         
+	        
+	        
 	    }else{
 	        viewHolder = (EntityItemViewHolder) view.getTag(R.id.holder);
 	    }
 	    
-	    view.setOnTouchListener(new MyTouchListener());
+	    view.setOnTouchListener(new WimmTouchListener(activity, this));
 	    
 	    WimmEntity entity = entities.get(position);
 	     
@@ -122,87 +92,63 @@ public class EntityListAdapter extends BaseAdapter{
 	    return view;
 	}
 	
-	private static class EntityItemViewHolder{
+	private class EntityItemViewHolder{
 		ImageView icon;
 		TextView title;
 		TextView descriprion;
 		Button buttonRemove;
 		View content;
-	}
-	
-	private int action_down_x = 0;
-    private int action_up_x = 0;
-    private int difference = 0;
-	
-	class MyTouchListener implements OnTouchListener
-    {
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		
+		private int position = -1;
+		
+		public void init(View view){
 			
-			EntityItemViewHolder holder = (EntityItemViewHolder) v.getTag(R.id.holder);
-			int action = event.getAction();
-
-			boolean processed = (difference > -1 && difference <=3);
+			position = (Integer) view.getTag(R.id.position);
 			
-			Log.e("TAG", "processed: "+processed+ " differences: "+difference);
-			
-			switch (action) {
-			case MotionEvent.ACTION_DOWN:
-				action_down_x = (int) event.getX();
-				Log.d("action", "ACTION_DOWN - ");
-				break;
-			case MotionEvent.ACTION_MOVE:
-				Log.d("action", "ACTION_MOVE - ");
-				action_up_x = (int) event.getX();
-				difference = action_down_x - action_up_x;
-				calcuateDifference(holder);
-				break;
-			case MotionEvent.ACTION_UP:
-				Log.d("action", "ACTION_UP - ");
+			icon = (ImageView) view.findViewById(R.id.icon);
+	        title = (TextView) view.findViewById(R.id.firstLine);
+	        descriprion = (TextView) view.findViewById(R.id.secondLine);
+	        buttonRemove = (Button) view.findViewById(R.id.entity_item_delete);
+	        content = view.findViewById(R.id.entity_item_content);
+	        
+	        buttonRemove.setOnClickListener(new OnClickListener() {
 				
-				if(processed){
-					WimmApplication.setSelectedEntity((WimmEntity)getItem(Integer.valueOf(v.getTag(R.id.position).toString())));
-					startInfoFragment();
+				@Override
+				public void onClick(View view) {
+					
+					WimmApplication.getDAO().deleteEntity(entities.get(position).getId());
+					
+					view.setVisibility(View.GONE);
+					entities.remove(position);
+					
+					notifyDataSetChanged();
+					content.setVisibility(View.VISIBLE);
+					buttonRemove.setVisibility(View.GONE);
 				}
-				
-				action_down_x = 0;
-				action_up_x = 0;
-				difference = 0;
-				
-				break;
-			}
-			return true;
+			});
+	        
 		}
-    }
-
-	private void calcuateDifference(final EntityItemViewHolder holder) {
-		
-		activity.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (difference > 75) {
-					holder.buttonRemove.setVisibility(View.VISIBLE);
-					holder.content.setVisibility(View.GONE);
-				}
-				if (difference < -75) {
-					holder.buttonRemove.setVisibility(View.GONE);
-					holder.content.setVisibility(View.VISIBLE);
-				}
-			}
-		});
-		
 	}
-	
-	private void startInfoFragment(){
-		EntityPreviewFragment newFragment = new EntityPreviewFragment();
 
-		FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+	@Override
+	public void onTouch(View view) {
+		WimmApplication.setSelectedEntity((WimmEntity)getItem(Integer.valueOf(view.getTag(R.id.position).toString())));
+		WimmApplication.getFragmentManager().startInfoFragment();
+	}
 
-		transaction.replace(R.id.main_activity_root, newFragment);
-		transaction.addToBackStack(null);
+	@Override
+	public void onSwipeLeft(View view) {
+		EntityItemViewHolder holder = (EntityItemViewHolder) view.getTag(R.id.holder);
+		holder.buttonRemove.setVisibility(View.GONE);
+		holder.content.setVisibility(View.VISIBLE);
+	}
 
-		transaction.commit();
+	@Override
+	public void onSwipeRight(View view) {
+		EntityItemViewHolder holder = (EntityItemViewHolder) view.getTag(R.id.holder);
+		holder.buttonRemove.setVisibility(View.VISIBLE);
+		holder.content.setVisibility(View.GONE);
+		
 	}
 	
 }
