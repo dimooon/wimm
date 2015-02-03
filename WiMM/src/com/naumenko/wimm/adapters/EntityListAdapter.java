@@ -55,7 +55,11 @@ public class EntityListAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		return this.entities.get(position).getId();
 	}
-
+	
+	public List<WimmEntity> getItems(){
+		return this.entities;
+	}
+	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final EntityItemViewHolder viewHolder;

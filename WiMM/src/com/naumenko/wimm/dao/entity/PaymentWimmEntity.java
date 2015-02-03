@@ -1,5 +1,9 @@
 package com.naumenko.wimm.dao.entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.R.xml;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -122,6 +126,53 @@ public class PaymentWimmEntity implements WimmEntity{
 	}
 	
 	@Override
+	public String getConvertedXml() {
+		
+		final String OPEN_TAG = "<";
+		final String CLOSE_TAG = "/>"; 
+		final String PADDING = " ";
+		final String CLOSE_PARAMETER = "\'";
+		final String NAME_TAG = " name=\'";
+		final String AMOUNT_TAG = " amount=\'";
+		final String TYPE_TAG = " type=\'";
+		final String DATE_TAG = " date=\'";
+		final String DESCRIPTION_TAG = " description=\'";
+		
+		StringBuilder xmlExpressionBuilder = new StringBuilder();
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
+    	String dateString = formatter.format(new Date(getTimeInMs()));
+		
+		xmlExpressionBuilder
+		.append(OPEN_TAG)
+		.append(PaymentWimmEntity.class.getSimpleName())
+		.append(PADDING)
+		
+		.append(NAME_TAG)
+		.append(getName())
+		.append(CLOSE_PARAMETER)
+		
+		.append(AMOUNT_TAG)
+		.append(getAmount())
+		.append(CLOSE_PARAMETER)
+		
+		.append(TYPE_TAG)
+		.append(getType().name())
+		.append(CLOSE_PARAMETER)
+		
+		.append(DATE_TAG)
+		.append(dateString)
+		.append(CLOSE_PARAMETER)
+		
+		.append(DESCRIPTION_TAG)
+		.append(CLOSE_PARAMETER)
+		.append(PADDING)
+		.append(CLOSE_TAG);
+		
+		return xmlExpressionBuilder.toString();
+	}
+	
+	@Override
 	public boolean entityParsed() {
 		return id > 0;
 	}
@@ -185,5 +236,5 @@ public class PaymentWimmEntity implements WimmEntity{
 		this.type = null;
 		this.timeInMs = -1l;
 	}
-	
+
 }

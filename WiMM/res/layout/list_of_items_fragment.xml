@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip" />
 
+    <Button
+        android:id="@+id/export"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:text="Export to XML" />
+    
     <ListView
         android:id="@+id/created_entity_list"
         android:layout_width="match_parent"
