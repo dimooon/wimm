@@ -185,7 +185,8 @@ public class WimmContentProvider extends ContentProvider{
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_DESCRIPTION.getContractKey(),
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(),
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(),
-	    		EntityTable.ENTITY_CONTRACT.COLUMN_DATE.getContractKey()};
+	    		EntityTable.ENTITY_CONTRACT.COLUMN_DATE.getContractKey(),
+                EntityTable.ENTITY_CONTRACT.COLUMN_LIST_ID.getContractKey()};
 	    
 	    if (projection != null) {
 	      HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));

@@ -11,7 +11,7 @@ public class EntityTable {
 	private static final String TAG = EntityTable.class.getSimpleName();
 
 	public static void onCreate(SQLiteDatabase db) {
-		db.execSQL(WIMM_QUERY.CREATE_DATABASE.getQueryString());
+		db.execSQL(WIMM_QUERY.CREATE_ENTITY_TABLE.getQueryString());
 	}
 
 	public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -20,7 +20,7 @@ public class EntityTable {
 		        "Upgrading database from version " + oldVersion + " to "
 		            + newVersion + ", which will destroy all old data");
 		
-		db.execSQL(WIMM_QUERY.DROP_TABLE_IF_EXISTS.getQueryString());
+		db.execSQL(WIMM_QUERY.DROP_TABLE_ENTITY_IF_EXISTS.getQueryString());
 	    onCreate(db);
 	}
 	
@@ -29,7 +29,7 @@ public class EntityTable {
 		CONTRACT(null),
 		DATABASE_NAME("wimm_database"),
 
-		DATABASE_VERSION("1"),
+		DATABASE_VERSION("2"),
 		
 		TABLE_NAME("wimm_entity"),
 		COLUMN_ID("_id",0),
@@ -37,7 +37,8 @@ public class EntityTable {
 		COLUMN_DESCRIPTION("wimm_entity_description",2),
 		COLUMN_AMOUNT("wimm_entity_amount",3),
 		COLUMN_PAYMENT_TYPE("wimm_entity_payment_type",4),
-		COLUMN_DATE("wimm_entity_date",5);
+		COLUMN_DATE("wimm_entity_date",5),
+        COLUMN_LIST_ID("list_id",6);
 
 		private String contractKey;
 		private int index;
@@ -66,7 +67,8 @@ public class EntityTable {
 				COLUMN_DESCRIPTION.getContractKey(),
 				COLUMN_AMOUNT.getContractKey(),
 				COLUMN_PAYMENT_TYPE.getContractKey(),
-				COLUMN_DATE.getContractKey()};
+				COLUMN_DATE.getContractKey(),
+                COLUMN_LIST_ID.getContractKey()};
 		}
 	}
 }

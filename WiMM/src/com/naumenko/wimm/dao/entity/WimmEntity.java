@@ -8,6 +8,7 @@ public interface WimmEntity extends CursorParselable, ContentValuesConvertable, 
 	public void setAmount(double amount);
 	public void setPaymentType(PaymentType type);
 	public void setDate(Long timeInMs);
+    public long getListId();
 
 	public void setId(long id);
 	public String getName();
@@ -15,7 +16,8 @@ public interface WimmEntity extends CursorParselable, ContentValuesConvertable, 
 	public double getAmount();
 	public PaymentType getType();
 	public Long getTimeInMs();
-	
+    public void setListId(long id);
+
 	public String toString();
 	public boolean isValid();
 }

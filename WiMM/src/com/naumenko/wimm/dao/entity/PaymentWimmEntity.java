@@ -18,7 +18,8 @@ public class PaymentWimmEntity implements WimmEntity{
 	protected double amount;
 	protected PaymentType type;
 	protected Long timeInMs;
-	
+	protected long list_id;
+
 	public PaymentWimmEntity() {
 		super();
 		setDefultState();
@@ -62,8 +63,11 @@ public class PaymentWimmEntity implements WimmEntity{
 	public Long getTimeInMs() {
 		return timeInMs;
 	}
-	
-	@Override
+
+    @Override
+    public void setListId(long id) { this.list_id = id; }
+
+    @Override
 	public void setId(long id){
 		this.id = id;
 	}
@@ -93,7 +97,10 @@ public class PaymentWimmEntity implements WimmEntity{
 		this.timeInMs = timeInMs;
 	}
 
-	@Override
+    @Override
+    public long getListId() { return this.list_id; }
+
+    @Override
 	public String toString() {
 		return "Entity [id=" + id + ", name=" + name + ", description="
 				+ description + ", amount=" + amount + ", type=" + type
