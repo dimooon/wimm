@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, TrainingPlannerActivity!</string>
+    <string name="app_name">TPlanner</string>
+
+    <string name="drill">voleyball</string>
+    
+    
+    <string name="launchTop">Помічник тренера</string>
+    <string name="launchBottom">Программа планування тренувального графіку</string>
+    
+</resources>

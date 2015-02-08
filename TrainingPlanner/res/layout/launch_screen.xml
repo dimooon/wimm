@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/fill"
+    android:background="@color/pink_orange"
+    android:baselineAligned="false" >
+
+    <LinearLayout style="@style/launchMain" >
+
+        <LinearLayout
+            style="@style/textPannelTop"
+            android:visibility="gone" >
+
+            <TextView style="@style/textTop" />
+
+            <TextView style="@style/textBottom" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/logoPannel"
+            android:visibility="gone" >
+
+            <ImageView style="@style/logo" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/progressPannel" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        style="@style/fill"
+        android:layout_centerInParent="true"
+        android:scaleType="center"
+        android:src="@drawable/sport" />
+
+</RelativeLayout>

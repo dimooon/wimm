@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drillPannel"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/pink_orange" >
+
+    <LinearLayout
+        android:id="@+id/timePannel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/carrot" >
+
+        <ProgressBar
+            android:id="@+id/timeProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dip"
+            android:progress="40" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="0.2"
+                android:gravity="left"
+                android:textColor="#ff0000ff"
+                android:text="0 min" />
+
+            <LinearLayout
+                android:layout_width="30dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.8" />
+
+            <TextView
+                android:id="@+id/timeBarMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:layout_weight="0.2"
+                android:gravity="right"
+                android:textColor="#ff0000ff"
+                android:text="30 min" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="70dip"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/drillGridChekedList"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dip"
+                android:background="@color/carrot" />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <GridView
+                android:id="@+id/drillGrid"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dip"
+                android:layout_weight="0.9"
+                android:background="@color/carrot"
+                android:numColumns="4"
+                android:horizontalSpacing="2dip"
+                android:verticalSpacing="2dip"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:layout_weight="0.1"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/gridOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dip"
+                    android:layout_weight="1"
+                    android:background="@color/carrot"
+                    android:layout_marginRight="1dip"
+                    android:textColor="#ff0000ff"
+                    android:text="Ok" />
+
+                <Button
+                    android:id="@+id/gridClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dip"
+                    android:layout_weight="1"
+                    android:background="@color/carrot"
+                    android:layout_marginRight="1dip"
+                    android:textColor="#ff0000ff"
+                    android:text="Clear" />
+
+                <Button
+                    android:id="@+id/gridCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dip"
+                    android:layout_weight="1"
+                    android:background="@color/carrot"
+                    android:layout_marginRight="1dip"
+                    android:textColor="#ff0000ff"
+                    android:text="Cancel" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

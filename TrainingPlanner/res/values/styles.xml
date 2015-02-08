@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base parent -->
+
+    <style name="wide">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="tall">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <style name="wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="fill">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <!-- Dialog -->
+
+    <style name="noTitleDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- DrillGridItem -->
+
+    <style name="DrillPannel" parent="fill">
+        <item name="android:padding">3dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <!-- LaunchScreen -->
+
+    <style name="launchMain" parent="fill">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/pink_orange</item>
+    </style>
+
+    <style name="textPannelTop" parent="wide">
+        <item name="android:layout_weight">0.1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="textTop" parent="wide">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/launchTop</item>
+    </style>
+
+    <style name="textBottom" parent="textTop">
+        <item name="android:text">@string/launchBottom</item>
+    </style>
+
+    <style name="logoPannel" parent="wide">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">0.2</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="logo" parent="wide">
+        <item name="android:src">@drawable/logo</item>
+    </style>
+
+    <style name="progressPannel" parent="textPannelTop">
+        <item name="android:layout_weight">0.2</item>
+    </style>
+
+</resources>
