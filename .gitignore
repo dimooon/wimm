@@ -7,3 +7,11 @@ WiMMTest/.classpath
 WiMMTest/.project
 WiMMTest/bin/
 WiMMTest/project.properties
+
+.idea/
+out/
+WiMM/WiMM.iml
+WiMM/gen/
+WiMMTest/WiMMTest.iml
+WiMMTest/gen/
+

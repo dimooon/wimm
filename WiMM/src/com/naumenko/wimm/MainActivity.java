@@ -16,7 +16,7 @@ public class MainActivity extends Activity{
 		
 		initFragmentManager();
 		initDAO();
-		
+
 		WimmApplication.getFragmentManager().addMainFragment(savedInstanceState);
 	}
 	
