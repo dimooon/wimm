@@ -16,5 +16,15 @@
         android:layout_height="wrap_content"
         android:text="created Entity list"
         android:id="@+id/getListOfCreated"/>
-	
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/main_card_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </ScrollView>
+
 </LinearLayout>
