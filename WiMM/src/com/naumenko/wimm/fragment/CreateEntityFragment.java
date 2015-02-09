@@ -3,9 +3,12 @@ package com.naumenko.wimm.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,8 +21,9 @@ import android.widget.Spinner;
 
 import com.naumenko.wimm.R;
 import com.naumenko.wimm.WimmApplication;
-import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.Payment;
+import com.naumenko.wimm.dao.entity.PaymentList;
+import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class CreateEntityFragment extends Fragment{
@@ -29,6 +33,7 @@ public class CreateEntityFragment extends Fragment{
 	private EditText description;
 	private EditText amount;
 	private Spinner type;
+	private Spinner listType;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class CreateEntityFragment extends Fragment{
 		initCreateButton();
 		initSimpleFields();
 		initTypeSpinner();
+		initListSpinner();
+		initAddListButton();
 	}
 	
 	private void initCreateButton(){
@@ -89,6 +96,75 @@ public class CreateEntityFragment extends Fragment{
 				entity.setPaymentType(PaymentType.PAY);
 			}
 			
+		});
+	}
+	
+	private void initListSpinner(){
+		listType =  (Spinner) getView().findViewById(R.id.column_list);
+		
+		List<String> list = new ArrayList<String>();
+		
+		final ArrayList<PaymentList> paymentList = new ArrayList<PaymentList>();
+		paymentList.addAll(WimmApplication.getDAO().getPaymentLists());
+		
+		for (PaymentList payments : paymentList) {
+			list.add(payments.getName());
+		}
+		
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
+		
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		listType.setAdapter(dataAdapter);
+		listType.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				entity.setListId(paymentList.get(position).getId());
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				entity.setListId(1);
+			}
+			
+		});
+	}
+	
+	private void initAddListButton(){
+		getView().findViewById(R.id.add_list_button).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle("Title");
+
+				final EditText input = new EditText(getActivity());
+
+				input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+				builder.setView(input);
+
+				builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        
+				    	PaymentList newList = new PaymentList();
+				    	newList.setName(input.getText().toString());
+				    	
+				    	WimmApplication.getDAO().addPaymentList(newList);
+				    	
+				    	initListSpinner();
+				    	
+				    }
+				});
+				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        dialog.cancel();
+				    }
+				});
+
+				builder.show();
+			}
 		});
 	}
 	

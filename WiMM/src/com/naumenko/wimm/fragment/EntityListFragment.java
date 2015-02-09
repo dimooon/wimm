@@ -6,17 +6,19 @@ import java.util.List;
 import android.app.Fragment;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.naumenko.wimm.R;
 import com.naumenko.wimm.WimmApplication;
 import com.naumenko.wimm.adapters.EntityListAdapter;
+import com.naumenko.wimm.dao.entity.PaymentList;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.entity.export.ExportManager;
 
@@ -38,11 +40,13 @@ public class EntityListFragment extends Fragment {
 	
 	private void initListView(){
 		
-		final ListView listOfPaymentEntities = (ListView) getView().findViewById(R.id.created_entity_list);
+		final ExpandableListView listOfPaymentEntities = (ExpandableListView) getView().findViewById(R.id.created_entity_list);
 		
-		List<WimmEntity> createdItems = new ArrayList<WimmEntity>();
+		List<PaymentList> createdItems = new ArrayList<PaymentList>();
 		
-		createdItems.addAll(WimmApplication.getDAO().getEntityList());
+		createdItems.addAll(WimmApplication.getDAO().getPaymentLists());
+		
+		Log.e("tag", ""+createdItems);
 		
 		adapter = new EntityListAdapter(getActivity(), createdItems);
 

@@ -18,7 +18,7 @@
         android:layout_marginBottom="5dip"
         android:text="Export to XML" />
     
-    <ListView
+    <ExpandableListView
         android:id="@+id/created_entity_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
