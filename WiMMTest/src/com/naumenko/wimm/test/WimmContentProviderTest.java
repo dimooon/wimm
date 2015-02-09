@@ -8,7 +8,7 @@ import android.test.mock.MockContentResolver;
 import android.util.Log;
 
 import com.naumenko.wimm.dao.entity.PaymentType;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
 
@@ -17,7 +17,7 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 	private static final String TAG = WimmContentProviderTest.class.getSimpleName();
 	private IsolatedContext context;
 	private MockContentResolver resolver;
-	private PaymentWimmEntity entity;
+	private Payment entity;
 	
 	public WimmContentProviderTest() {
 		super(WimmContentProvider.class, WimmContentProvider.CONTRACT.AUTHORITY);
@@ -30,7 +30,7 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 		context = getMockContext();
 		resolver = getMockContentResolver();
 		
-		entity = new PaymentWimmEntity();
+		entity = new Payment();
 		
 		entity.setName("potato");
 		entity.setDescription("just a potato");
@@ -103,7 +103,7 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 		
 		assertTrue(id > 0);
 		
-		WimmEntity updateEntity = new PaymentWimmEntity();
+		WimmEntity updateEntity = new Payment();
 		
 		updateEntity.setId(id);
 		updateEntity.setName("rope");
@@ -136,7 +136,7 @@ public class WimmContentProviderTest extends ProviderTestCase2<WimmContentProvid
 		cursor.moveToFirst();
 	    
 	    while (!cursor.isAfterLast()) {
-	      Log.e(TAG, new PaymentWimmEntity(cursor).toString());
+	      Log.e(TAG, new Payment(cursor).toString());
 	      cursor.moveToNext();
 	    }
 

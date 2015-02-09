@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import com.naumenko.wimm.R;
 import com.naumenko.wimm.WimmApplication;
 import com.naumenko.wimm.dao.entity.PaymentType;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class CreateEntityFragment extends Fragment{
@@ -39,7 +39,7 @@ public class CreateEntityFragment extends Fragment{
 
 		initView();
 		
-		entity = new PaymentWimmEntity();
+		entity = new Payment();
 		
 	}
 	

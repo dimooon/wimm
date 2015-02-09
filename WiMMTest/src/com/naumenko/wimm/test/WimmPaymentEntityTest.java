@@ -5,17 +5,17 @@ import android.test.AndroidTestCase;
 
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.entity.PaymentType;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 
 public class WimmPaymentEntityTest extends AndroidTestCase{
 
-	private PaymentWimmEntity entity;
+	private Payment entity;
 	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		entity = new PaymentWimmEntity();
+		entity = new Payment();
 		entity.setName("testName");
 		entity.setDescription("no desription");
 		entity.setAmount(350.53);;

@@ -17,4 +17,7 @@ public interface WimmDAO {
 	public int clear();
 	
 	public ArrayList<PaymentList> getPaymentLists();
+	public PaymentList getPaymentList(long list_id);
+	public long addPaymentList(PaymentList list);
+	public boolean deleteList(long id);
 }

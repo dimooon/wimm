@@ -10,7 +10,7 @@ import com.naumenko.wimm.dao.ContentProviderWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.dao.entity.PaymentList;
 import com.naumenko.wimm.dao.entity.PaymentType;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmDAOviaContentProviderTest extends AndroidTestCase{
@@ -142,14 +142,13 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 	}
 	
 	public void testGetPaymentList(){
-		Assert.fail();
+		PaymentList defaultPaymentList = dataAccessObject.getPaymentList(WimmDAOviaDatabaseTest.ALWAYS_EXISTING_UNNAMED_LIST);
+		
+		assertNotNull(defaultPaymentList);
+		assertTrue(defaultPaymentList.getId() == WimmDAOviaDatabaseTest.ALWAYS_EXISTING_UNNAMED_LIST);
 	}
 	
 	public void testDeletePaymentList(){
-		Assert.fail();
-	}
-	
-	public void testUpdatePaymentList(){
 		Assert.fail();
 	}
 	
@@ -157,18 +156,10 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 		Assert.fail();
 	}
 	
-	public void testAddPaymentToList(){
-		Assert.fail();
-	}
-	
-	public void testMovePaymentToList(){
-		Assert.fail();
-	}
-	
 	private void initDAO(){
 		dataAccessObject = new ContentProviderWimmDAO(getContext());
 		
-		entity = new PaymentWimmEntity();
+		entity = new Payment();
 		
 		entity.setName("potato");
 		entity.setDescription("just a potato");

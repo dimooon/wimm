@@ -9,9 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
 import com.naumenko.wimm.dao.db.ListTable.LIST_CONTRACT;
+import com.naumenko.wimm.dao.db.EntityTable;
+import com.naumenko.wimm.dao.db.ListTable;
 import com.naumenko.wimm.dao.db.WimmSQLiteHelper;
 import com.naumenko.wimm.dao.entity.PaymentList;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class SqliteWimmDAO implements WimmDAO{
@@ -74,6 +76,7 @@ public class SqliteWimmDAO implements WimmDAO{
 		open();
 		
 		deletedCount =  database.delete(ENTITY_CONTRACT.TABLE_NAME.getContractKey() , null, null);
+		deletedCount+=  database.delete(ListTable.LIST_CONTRACT.TABLE_NAME.getContractKey(), EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "> 1", null);
 		
 		close();
 		
@@ -95,7 +98,7 @@ public class SqliteWimmDAO implements WimmDAO{
 		        null);
 		cursor.moveToFirst();
 		
-		WimmEntity entity = new PaymentWimmEntity(cursor);
+		WimmEntity entity = new Payment(cursor);
 		cursor.close();
 		
 		close();
@@ -189,6 +192,63 @@ public class SqliteWimmDAO implements WimmDAO{
 		return entityLists;
 	}
 	
+	@Override
+	public PaymentList getPaymentList(long list_id) {
+		
+		open();
+		
+		Cursor cursor = database.query(
+				LIST_CONTRACT.TABLE_NAME.getContractKey(),
+				LIST_CONTRACT.CONTRACT.getSelectionAllFields(), 
+				LIST_CONTRACT.COLUMN_ID.getContractKey() + " = " + list_id, 
+				null,
+		        null,
+		        null,
+		        null);
+		cursor.moveToFirst();
+		
+		PaymentList list = new PaymentList();
+		list.cursorToWimmEntity(cursor);
+		list.setEntities(getEntityList(list.getId()));
+		cursor.close();
+		
+		close();
+		
+		return list;
+		
+	}
+	
+	@Override
+	public long addPaymentList(PaymentList list) {
+		open();
+		
+	    long insertId = database.insert(LIST_CONTRACT.TABLE_NAME.getContractKey(), null, list.getConvertedContentValues());
+	    
+	    for (WimmEntity entity : list.getEntities()) {
+	    	entity.setListId(insertId);
+			addEntity(entity);
+		}
+	    
+	    close();
+	    
+		return insertId;
+	}
+	
+	@Override
+	public boolean deleteList(long id) {
+		open();
+		
+	    int count = database.delete(
+	    			LIST_CONTRACT.TABLE_NAME.getContractKey(), 
+	    			LIST_CONTRACT.COLUMN_ID.getContractKey() + " = " + id, 
+	    			null);
+		
+	    close();
+	    
+		return count > 0;
+		
+	}
+	
 	private void open(){
 		database = helper.getWritableDatabase();
 	}
@@ -199,7 +259,7 @@ public class SqliteWimmDAO implements WimmDAO{
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
 		
-		WimmEntity entity = new PaymentWimmEntity(cursor);
+		WimmEntity entity = new Payment(cursor);
 		
 		return entity;
 	}

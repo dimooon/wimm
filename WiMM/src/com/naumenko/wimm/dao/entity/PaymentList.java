@@ -6,6 +6,8 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.naumenko.wimm.dao.db.EntityTable;
+import com.naumenko.wimm.dao.db.ListTable;
 import com.naumenko.wimm.dao.db.ListTable.LIST_CONTRACT;
 
 public class PaymentList implements WimmList{
@@ -43,7 +45,11 @@ public class PaymentList implements WimmList{
 
     @Override
     public ContentValues getConvertedContentValues() {
-        return null;
+    	ContentValues contentValuesExpression = new ContentValues();
+		
+		contentValuesExpression.put(ListTable.LIST_CONTRACT.COLUMN_NAME.getContractKey(), getName());
+		
+		return contentValuesExpression;
     }
 
     @Override

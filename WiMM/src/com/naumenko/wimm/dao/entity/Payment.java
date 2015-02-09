@@ -3,14 +3,13 @@ package com.naumenko.wimm.dao.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.R.xml;
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
 
-public class PaymentWimmEntity implements WimmEntity{
+public class Payment implements WimmEntity{
 	
 	protected long id;
 	protected String name;
@@ -20,12 +19,12 @@ public class PaymentWimmEntity implements WimmEntity{
 	protected Long timeInMs;
 	protected long list_id;
 
-	public PaymentWimmEntity() {
+	public Payment() {
 		super();
 		setDefultState();
 	}
 	
-	public PaymentWimmEntity(Cursor cursor){
+	public Payment(Cursor cursor){
 		cursorToWimmEntity(cursor);
 	}
 	
@@ -155,7 +154,7 @@ public class PaymentWimmEntity implements WimmEntity{
 		
 		xmlExpressionBuilder
 		.append(OPEN_TAG)
-		.append(PaymentWimmEntity.class.getSimpleName())
+		.append(Payment.class.getSimpleName())
 		.append(PADDING)
 		
 		.append(NAME_TAG)
@@ -216,7 +215,7 @@ public class PaymentWimmEntity implements WimmEntity{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PaymentWimmEntity other = (PaymentWimmEntity) obj;
+		Payment other = (Payment) obj;
 		if (Double.doubleToLongBits(amount) != Double
 				.doubleToLongBits(other.amount))
 			return false;

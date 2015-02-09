@@ -11,8 +11,9 @@ import android.net.Uri;
 import com.naumenko.wimm.dao.db.EntityTable;
 import com.naumenko.wimm.dao.db.ListTable;
 import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
+import com.naumenko.wimm.dao.db.ListTable.LIST_CONTRACT;
 import com.naumenko.wimm.dao.entity.PaymentList;
-import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
+import com.naumenko.wimm.dao.entity.Payment;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
 
@@ -72,7 +73,7 @@ public class ContentProviderWimmDAO implements WimmDAO{
 		
 		cursor.moveToFirst();
 		
-		WimmEntity entity = new PaymentWimmEntity(cursor);
+		WimmEntity entity = new Payment(cursor);
 		
 		return entity;
 	}
@@ -144,6 +145,34 @@ public class ContentProviderWimmDAO implements WimmDAO{
 	}
 	
 	@Override
+	public PaymentList getPaymentList(long list_id) {
+		Cursor cursor = resolver.query(
+				WimmContentProvider.CONTRACT.CONTENT_URI, 
+				LIST_CONTRACT.CONTRACT.getSelectionAllFields(), 
+				LIST_CONTRACT.COLUMN_ID.getContractKey() + " = " + String.valueOf(list_id), 
+				null, 
+				LIST_CONTRACT.TABLE_NAME.getContractKey());
+		
+		cursor.moveToFirst();
+		
+		PaymentList list = new PaymentList();
+		list.cursorToWimmEntity(cursor);
+		list.setEntities(getEntityList(list.getId()));
+		
+		return list;
+	}
+	
+	@Override
+	public long addPaymentList(PaymentList list) {
+		return 0;
+	}
+	
+	@Override
+	public boolean deleteList(long id) {
+		return false;
+	}
+	
+	@Override
 	public int clear() {
 		
 		int deleteCount = resolver.delete(
@@ -156,7 +185,7 @@ public class ContentProviderWimmDAO implements WimmDAO{
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
 		
-		WimmEntity entity = new PaymentWimmEntity(cursor);
+		WimmEntity entity = new Payment(cursor);
 		
 		return entity;
 	}
