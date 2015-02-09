@@ -9,7 +9,9 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.naumenko.wimm.dao.db.EntityTable;
+import com.naumenko.wimm.dao.db.ListTable;
 import com.naumenko.wimm.dao.db.EntityTable.ENTITY_CONTRACT;
+import com.naumenko.wimm.dao.entity.PaymentList;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 import com.naumenko.wimm.dao.provider.WimmContentProvider;
@@ -98,8 +100,58 @@ public class ContentProviderWimmDAO implements WimmDAO{
 	}
 
 	@Override
+	public ArrayList<PaymentList> getPaymentLists() {
+		ArrayList<PaymentList> paymentLists = new ArrayList<PaymentList>();
+		
+		Cursor cursor = resolver.query(
+				WimmContentProvider.CONTRACT.CONTENT_URI, 
+				null, 
+				null, 
+				null, 
+				ListTable.LIST_CONTRACT.TABLE_NAME.getContractKey());
+		
+		cursor.moveToFirst();
+		
+		while (!cursor.isAfterLast()) {
+			paymentLists.add(cursorToPamentList(cursor));
+		    cursor.moveToNext();
+		}
+		
+		return paymentLists;
+	}
+	
+	@Override
+	public List<WimmEntity> getEntityList(long listId) {
+		
+		List<WimmEntity> entities = new ArrayList<WimmEntity>();
+		
+		Cursor cursor = resolver.query(
+				WimmContentProvider.CONTRACT.CONTENT_URI, 
+				ENTITY_CONTRACT.CONTRACT.getSelectionAllFields(), 
+				ENTITY_CONTRACT.COLUMN_LIST_ID.getContractKey() + " = " + String.valueOf(listId),
+				null, 
+				ENTITY_CONTRACT.TABLE_NAME.getContractKey());
+		
+		cursor.moveToFirst();
+		
+		while (!cursor.isAfterLast()) {
+		      entities.add(cursorToEntity(cursor));
+		      cursor.moveToNext();
+		}
+		
+		return entities;
+
+	}
+	
+	@Override
 	public int clear() {
-		return 0;
+		
+		int deleteCount = resolver.delete(
+				WimmContentProvider.CONTRACT.CONTENT_URI, 
+				null, 
+				null); 
+		
+		return deleteCount;
 	}
 	
 	private WimmEntity cursorToEntity(Cursor cursor){
@@ -107,5 +159,14 @@ public class ContentProviderWimmDAO implements WimmDAO{
 		WimmEntity entity = new PaymentWimmEntity(cursor);
 		
 		return entity;
+	}
+	
+	private PaymentList cursorToPamentList(Cursor cursor){
+		
+		PaymentList paymentList = new PaymentList();
+		paymentList.cursorToWimmEntity(cursor);
+		paymentList.setEntities(getEntityList(paymentList.getId()));
+		
+		return paymentList;
 	}
 }

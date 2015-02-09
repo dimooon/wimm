@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.dao.entity.PaymentList;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class StubDAO implements WimmDAO{
@@ -40,5 +41,15 @@ public class StubDAO implements WimmDAO{
 	@Override
 	public int clear() {
 		return 3;
+	}
+
+	@Override
+	public ArrayList<PaymentList> getPaymentLists() {
+		return null;
+	}
+
+	@Override
+	public List<WimmEntity> getEntityList(long listId) {
+		return getEntityList();
 	}
 }

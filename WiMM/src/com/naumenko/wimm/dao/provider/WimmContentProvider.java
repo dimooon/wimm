@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.naumenko.wimm.dao.db.EntityTable;
+import com.naumenko.wimm.dao.db.ListTable;
 import com.naumenko.wimm.dao.db.WimmSQLiteHelper;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
@@ -35,25 +36,30 @@ public class WimmContentProvider extends ContentProvider{
 	    SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
 	    checkColumns(projection);
-
-	    queryBuilder.setTables(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey());
-
+	    
+	    Log.e("wimmcp", "sortOrder: "+sortOrder);
+	    
+	    queryBuilder.setTables( sortOrder == null ? 
+	    		EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey() : 
+	    		sortOrder);
+	    
+	    sortOrder = null;
+	    
 	    int uriType = CONTRACT.URIMatcher.match(uri);
 	    switch (uriType) {
 	    case CONTRACT.ENTITY_CODE:
 	      break;
 	    case CONTRACT.ENTITY_ID_CODE:
-	    	
 	      queryBuilder.appendWhere(EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + uri.getLastPathSegment());
 	      break;
 	    default:
 	      throw new IllegalArgumentException("Unknown URI: " + uri);
 	    }
-
+	    
 	    SQLiteDatabase db = databaseHelper.getWritableDatabase();
 	    
 	    Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
-
+	    
 	    cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 	    return cursor;
@@ -86,6 +92,14 @@ public class WimmContentProvider extends ContentProvider{
 		int uriType = CONTRACT.URIMatcher.match(uri);
 	    SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
 	    int rowsDeleted = 0;
+	    
+	    if(selection == null){
+	    	rowsDeleted = sqlDB.delete(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), null, null);
+	    	rowsDeleted+= sqlDB.delete(ListTable.LIST_CONTRACT.TABLE_NAME.getContractKey(), EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "> 1", null);
+	    	
+	    	return rowsDeleted;
+	    }
+	    
 	    switch (uriType) {
 	    case CONTRACT.ENTITY_CODE:
 	      rowsDeleted = sqlDB.delete(EntityTable.ENTITY_CONTRACT.TABLE_NAME.getContractKey(), EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey() + "=" + selection, selectionArgs);
@@ -178,7 +192,8 @@ public class WimmContentProvider extends ContentProvider{
 	}
 	
 	private void checkColumns(String[] projection) {
-	    String[] available = { 
+	    
+		String[] available = { 
 	    
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_ID.getContractKey(),
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_NAME.getContractKey(),
@@ -186,7 +201,10 @@ public class WimmContentProvider extends ContentProvider{
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(),
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(),
 	    		EntityTable.ENTITY_CONTRACT.COLUMN_DATE.getContractKey(),
-                EntityTable.ENTITY_CONTRACT.COLUMN_LIST_ID.getContractKey()};
+                EntityTable.ENTITY_CONTRACT.COLUMN_LIST_ID.getContractKey(),
+                
+				ListTable.LIST_CONTRACT.COLUMN_ID.getContractKey(),
+				ListTable.LIST_CONTRACT.COLUMN_NAME.getContractKey()};
 	    
 	    if (projection != null) {
 	      HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));

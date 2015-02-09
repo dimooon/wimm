@@ -2,17 +2,20 @@ package com.naumenko.wimm.test;
 
 import java.util.ArrayList;
 
+import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.naumenko.wimm.dao.ContentProviderWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
+import com.naumenko.wimm.dao.entity.PaymentList;
 import com.naumenko.wimm.dao.entity.PaymentType;
 import com.naumenko.wimm.dao.entity.PaymentWimmEntity;
 import com.naumenko.wimm.dao.entity.WimmEntity;
 
 public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 
+	private static final String TAG = WimmDAOviaContentProviderTest.class.getSimpleName();
 	private WimmDAO dataAccessObject;
 	private WimmEntity entity;
 	@Override
@@ -26,7 +29,9 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		
-		dataAccessObject.clear();
+		int deletedCount = dataAccessObject.clear();
+		
+		Log.e(TAG, "deletedCount: "+deletedCount);
 		
 		freeDAO();
 	}
@@ -88,6 +93,76 @@ public class WimmDAOviaContentProviderTest extends AndroidTestCase{
 			Log.e("TAG", ""+wimmEntity);
 		}
 		
+	}
+	
+	public void testGetPaymentLists(){
+		
+		dataAccessObject.addEntity(entity);
+		entity.setName("another");
+		dataAccessObject.addEntity(entity);
+		entity.setListId(WimmDAOviaDatabaseTest.ALWAYS_EXISTING_UNNAMED_LIST);
+		dataAccessObject.addEntity(entity);
+		
+		entity.setListId(WimmDAOviaDatabaseTest.NOT_EXISTING_LIST_ID);
+		dataAccessObject.addEntity(entity);
+		
+		ArrayList<PaymentList> paymentLists;
+		
+		paymentLists = dataAccessObject.getPaymentLists();
+		assertNotNull(paymentLists);
+		assertTrue(paymentLists.size() > 0);
+		assertTrue(paymentLists.size() == 1);
+		
+		PaymentList unnamedList = paymentLists.get(0);
+		
+		Log.e(TAG, "unnamedList: "+unnamedList);
+		
+		assertNotNull(unnamedList);
+		assertTrue(unnamedList.getId() == WimmDAOviaDatabaseTest.ALWAYS_EXISTING_UNNAMED_LIST);
+		assertNotNull(unnamedList.getName());
+		
+		ArrayList<WimmEntity> entities = new ArrayList<WimmEntity>(unnamedList.getEntities());
+		
+		assertNotNull(entities);
+		assertTrue(entities.size() > 0);
+		assertTrue(entities.size() == 3);
+		
+		WimmEntity firstInserted = entities.get(0);
+		assertTrue(firstInserted.getListId() == unnamedList.getId());
+		assertEquals(firstInserted.getName(), "potato");
+		
+		WimmEntity secondInserted = entities.get(1);
+		assertTrue(secondInserted.getListId() == unnamedList.getId());
+		assertEquals(secondInserted.getName(), "another");
+		
+		WimmEntity thirdInserted = entities.get(1);
+		assertTrue(thirdInserted.getListId() == unnamedList.getId());
+		assertEquals(thirdInserted.getName(), "another");
+		
+	}
+	
+	public void testGetPaymentList(){
+		Assert.fail();
+	}
+	
+	public void testDeletePaymentList(){
+		Assert.fail();
+	}
+	
+	public void testUpdatePaymentList(){
+		Assert.fail();
+	}
+	
+	public void testAddPaymentList(){
+		Assert.fail();
+	}
+	
+	public void testAddPaymentToList(){
+		Assert.fail();
+	}
+	
+	public void testMovePaymentToList(){
+		Assert.fail();
 	}
 	
 	private void initDAO(){

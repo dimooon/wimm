@@ -104,7 +104,7 @@ public class PaymentWimmEntity implements WimmEntity{
 	public String toString() {
 		return "Entity [id=" + id + ", name=" + name + ", description="
 				+ description + ", amount=" + amount + ", type=" + type
-				+ ", timeInMs=" + timeInMs + "]";
+				+ ", timeInMs=" + timeInMs + ", list_id= "+ list_id + "]";
 	}
 	
 	@Override
@@ -115,6 +115,7 @@ public class PaymentWimmEntity implements WimmEntity{
 		setAmount(cursor.isNull(3) ? -1.0 : cursor.getDouble(ENTITY_CONTRACT.COLUMN_AMOUNT.getIndex()));
 		setPaymentType(cursor.isNull(4) ? null : (PaymentType.get(cursor.getString(ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getIndex()))));
 		setDate(cursor.isNull(5) ? -1 :cursor.getLong(ENTITY_CONTRACT.COLUMN_DATE.getIndex()));
+		setListId((cursor.isNull(6) ? 1 :cursor.getLong(ENTITY_CONTRACT.COLUMN_LIST_ID.getIndex())));
 	}
 	
 
@@ -128,6 +129,7 @@ public class PaymentWimmEntity implements WimmEntity{
 		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_AMOUNT.getContractKey(), getAmount());
 		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_PAYMENT_TYPE.getContractKey(), getType().getTypeRepresentation());
 		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_DATE.getContractKey(), getTimeInMs());
+		contentValuesExpression.put(EntityTable.ENTITY_CONTRACT.COLUMN_LIST_ID.getContractKey(), getListId());
 		
 		return contentValuesExpression;
 	}
@@ -143,6 +145,7 @@ public class PaymentWimmEntity implements WimmEntity{
 		final String AMOUNT_TAG = " amount=\'";
 		final String TYPE_TAG = " type=\'";
 		final String DATE_TAG = " date=\'";
+		final String LIST_TAG = " list=\'";
 		final String DESCRIPTION_TAG = " description=\'";
 		
 		StringBuilder xmlExpressionBuilder = new StringBuilder();
@@ -169,6 +172,10 @@ public class PaymentWimmEntity implements WimmEntity{
 		
 		.append(DATE_TAG)
 		.append(dateString)
+		.append(CLOSE_PARAMETER)
+		
+		.append(LIST_TAG)
+		.append(getListId())
 		.append(CLOSE_PARAMETER)
 		
 		.append(DESCRIPTION_TAG)
@@ -242,6 +249,7 @@ public class PaymentWimmEntity implements WimmEntity{
 		this.amount = -1.0;
 		this.type = null;
 		this.timeInMs = -1l;
+		this.list_id = 1;
 	}
 
 }
