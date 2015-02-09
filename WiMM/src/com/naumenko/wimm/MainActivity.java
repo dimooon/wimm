@@ -3,7 +3,7 @@ package com.naumenko.wimm;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.naumenko.wimm.dao.ContentProviderWimmDAO;
+import com.naumenko.wimm.dao.SqliteWimmDAO;
 import com.naumenko.wimm.dao.WimmDAO;
 import com.naumenko.wimm.fragment.WimmFragmentManager;
 
@@ -25,7 +25,7 @@ public class MainActivity extends Activity{
 		WimmApplication.setFragmentManager(manager);
 	}
 	private void initDAO(){
-		WimmDAO dao = new ContentProviderWimmDAO(this);
+		WimmDAO dao = new SqliteWimmDAO(this);
 		WimmApplication.setDAO(dao);
 	}
 }
