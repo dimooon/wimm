@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text sizes -->
+
+    <dimen name="text_size_card_main_title">16sp</dimen>
+    <dimen name="text_size_card_main_text">14sp</dimen>
+    <dimen name="text_size_card_image_title">18sp</dimen>
+
+    <!-- Payment List Card View  -->
+
+    <dimen name="payment_list_card_view_cardCornerRadius">2dip</dimen>
+    <dimen name="payment_list_card_view_cardElevation">5dip</dimen>
+
+    <dimen name="payment_list_card_view_type_icon_width">60dip</dimen>
+    <dimen name="payment_list_card_view_type_icon_height">60dip</dimen>
+    <dimen name="payment_list_card_view_type_icon_margins">10dip</dimen>
+
+    <dimen name="payment_list_card_view_main_icon_height">120dip</dimen>
+    <dimen name="payment_list_card_view_icon_bottom_bar_height">50dip</dimen>
+
+
+</resources>

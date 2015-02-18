@@ -1,0 +1,58 @@
+<resources>
+    <style name="AppBaseTheme" parent="android:Theme.Light"/>
+    <style name="AppTheme" parent="AppBaseTheme"/>
+
+    <style name="tall" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="fat" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="wrap" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="fill" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- Payment card list view Item -->
+
+    <style name="paymentListCard" parent="fat">
+    </style>
+
+    <style name="paymentListCard_TypeIcon">
+        <item name="android:layout_width">@dimen/payment_list_card_view_type_icon_width</item>
+        <item name="android:layout_height">@dimen/payment_list_card_view_type_icon_height</item>
+        <item name="android:layout_margin">@dimen/payment_list_card_view_type_icon_margins</item>
+    </style>
+
+    <style name="paymentListCard_MainIcon" parent="fat">
+        <item name="android:layout_height">@dimen/payment_list_card_view_main_icon_height</item>
+    </style>
+
+    <style name="paymentListCard_MainIcon_BottomBar" parent="fat">
+        <item name="android:layout_height">@dimen/payment_list_card_view_icon_bottom_bar_height</item>
+        <item name="android:background">@color/payment_list_cardView_bottomBar_background</item>
+    </style>
+
+    <style name="paymentListCard_MainCardTitle" parent="fat">
+        <item name="android:textSize">@dimen/text_size_card_main_title</item>
+        <item name="android:textColor">@color/text_main_colour</item>
+    </style>
+
+    <style name="paymentListCard_MainIcon_BottomBar_Text" parent="paymentListCard_MainCardTitle">
+        <item name="android:textSize">@dimen/text_size_card_image_title</item>
+    </style>
+
+    <style name="paymentListCard_MainCardText" parent="paymentListCard_MainCardTitle">
+        <item name="android:textSize">@dimen/text_size_card_main_title</item>
+    </style>
+
+</resources>

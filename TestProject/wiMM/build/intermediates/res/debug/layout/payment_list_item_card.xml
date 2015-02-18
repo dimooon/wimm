@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/fat"
+    android:orientation="vertical">
+
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/paymentListCard"
+    android:layout_gravity="center"
+    android:id="@+id/payment_list_card_view"
+    card_view:cardCornerRadius="@dimen/payment_list_card_view_cardCornerRadius"
+    card_view:cardElevation="@dimen/payment_list_card_view_cardElevation">
+
+    <LinearLayout
+        style="@style/fat"
+        android:orientation="vertical">
+
+        <FrameLayout
+            style="@style/fat">
+
+            <ImageView
+                style="@style/paymentListCard_TypeIcon"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"/>
+
+            <ImageView
+                style="@style/paymentListCard_MainIcon"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"/>
+
+            <LinearLayout
+                style="@style/paymentListCard_MainIcon_BottomBar"
+                android:layout_gravity="bottom"/>
+
+            <TextView
+                android:id="@+id/info_text"
+                style="@style/paymentListCard_MainIcon_BottomBar_Text"
+                android:text="some text"
+                android:layout_gravity="center|bottom"
+                android:gravity="center"
+                android:layout_marginBottom="15dip"/>
+
+        </FrameLayout>
+
+        <TextView
+            style="@style/paymentListCard_MainCardTitle"
+            android:text="From the scratch"
+            android:gravity="center"/>
+
+        <FrameLayout
+            style="@style/fat">
+
+            <TextView
+                style="@style/paymentListCard_MainCardText"
+                android:text="Gain"
+                android:gravity="left"/>
+
+            <TextView
+                style="@style/paymentListCard_MainCardText"
+                android:text="Amount"
+                android:layout_marginTop="25dip"
+                android:gravity="left"/>
+
+            <TextView
+                style="@style/paymentListCard_MainCardText"
+                android:gravity="right"
+                android:text="Spent"/>
+
+            <TextView
+                android:gravity="right"
+                style="@style/paymentListCard_MainCardText"
+                android:layout_marginTop="25dip"
+                android:text="Amount"/>
+
+        </FrameLayout>
+
+        <TextView
+            style="@style/paymentListCard_MainCardTitle"
+            android:text="From the Last month"
+            android:gravity="center"/>
+
+        <FrameLayout
+            style="@style/fat">
+
+            <TextView
+                style="@style/paymentListCard_MainCardText"
+                android:text="Gain"
+                android:gravity="left"/>
+
+            <TextView
+                style="@style/paymentListCard_MainCardText"
+                android:text="Amount"
+                android:layout_marginTop="25dip"
+                android:gravity="left"/>
+
+            <TextView
+                android:gravity="right"
+                style="@style/paymentListCard_MainCardText"
+                android:text="Spent"/>
+
+            <TextView
+                android:gravity="right"
+                style="@style/paymentListCard_MainCardText"
+                android:layout_marginTop="25dip"
+                android:text="Amount"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+</LinearLayout><!-- From: file:/home/dimooon/WhereIsMyMoney/TestProject/wiMM/src/main/res/layout/payment_list_item_card.xml -->
